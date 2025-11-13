@@ -1,0 +1,57 @@
+<script>
+
+        // ═══════════════════════════════════════════════════════════════════════════════
+        // FUNCIONES DE VALIDACIÓN Y RECHAZO
+        // ═══════════════════════════════════════════════════════════════════════════════
+
+        function validateRequest(requestId, observaciones) {
+            console.log('[v0] Iniciando validación:', requestId, observaciones);
+            showLoading();
+            
+            google.script.run
+                .withSuccessHandler(function(result) {
+                    hideLoading();
+                    console.log('[v0] Resultado de validación:', result);
+                    
+                    if (result && result.success) {
+                        showAlert(result.message || 'Solicitud validada exitosamente', 'success');
+                        refreshAdmin();
+                    } else {
+                        console.log('[v0] Error en validación:', result);
+                        showAlert(result?.message || 'Error al validar solicitud', 'error');
+                    }
+                })
+                .withFailureHandler(function(error) {
+                    hideLoading();
+                    console.log('[v0] Error en llamada de validación:', error);
+                    showAlert('Error de conexión al validar', 'error');
+                })
+                .validateRequest(requestId, observaciones, currentUser);
+        }
+
+        function rejectRequest(requestId, observaciones) {
+            console.log('[v0] Iniciando rechazo:', requestId, observaciones);
+            showLoading();
+            
+            google.script.run
+                .withSuccessHandler(function(result) {
+                    hideLoading();
+                    console.log('[v0] Resultado de rechazo:', result);
+                    
+                    if (result && result.success) {
+                        showAlert(result.message || 'Solicitud rechazada exitosamente', 'success');
+                        refreshAdmin();
+                    } else {
+                        console.log('[v0] Error en rechazo:', result);
+                        showAlert(result?.message || 'Error al rechazar solicitud', 'error');
+                    }
+                })
+                .withFailureHandler(function(error) {
+                    hideLoading();
+                    console.log('[v0] Error en llamada de rechazo:', error);
+                    showAlert('Error de conexión al rechazar', 'error');
+                })
+                .rejectRequest(requestId, observaciones, currentUser);
+        }
+
+</script>

@@ -1,0 +1,195 @@
+<script>
+
+        let currentRequestId = null;
+        let customModalCallback = null;
+        let currentUser = null;
+
+        // ═══════════════════════════════════════════════════════════════════════════════
+        // FUNCIONES DE MODAL
+        // ═══════════════════════════════════════════════════════════════════════════════
+
+        function showCustomModal(title, message, showInput = false, callback = null) {
+            const modal = document.getElementById('customModal');
+            const titleElement = document.getElementById('customModalTitleText');
+            const messageElement = document.getElementById('customModalMessage');
+            const inputElement = document.getElementById('customModalInput');
+            const iconElement = document.getElementById('customModalIcon');
+            
+            titleElement.textContent = title;
+            messageElement.textContent = message;
+            inputElement.style.display = showInput ? 'block' : 'none';
+            inputElement.value = '';
+            
+            if (title.includes('Validar')) {
+                iconElement.textContent = '✅';
+            } else if (title.includes('Rechazar')) {
+                iconElement.textContent = '❌';
+            } else {
+                iconElement.textContent = '❓';
+            }
+            
+            customModalCallback = callback;
+            modal.style.display = 'flex';
+        }
+
+        function closeCustomModal() {
+            document.getElementById('customModal').style.display = 'none';
+            customModalCallback = null;
+        }
+
+        function confirmCustomModal() {
+            const inputElement = document.getElementById('customModalInput');
+            const inputValue = inputElement.value.trim();
+            
+            if (customModalCallback) {
+                customModalCallback(inputValue);
+            }
+            
+            closeCustomModal();
+        }
+
+        function showValidateRequestModal(requestId) {
+            currentRequestId = requestId;
+            showCustomModal(
+                'Validar Solicitud',
+                '¿Está seguro de que desea validar esta solicitud?',
+                true,
+                function(observaciones) {
+                    validateRequest(requestId, observaciones);
+                }
+            );
+        }
+
+        function showRejectRequestModal(requestId) {
+            currentRequestId = requestId;
+            showCustomModal(
+                'Rechazar Solicitud',
+                '¿Está seguro de que desea rechazar esta solicitud? Ingrese el motivo del rechazo:',
+                true,
+                function(motivo) {
+                    if (!motivo.trim()) {
+                        showAlert('Debe ingresar un motivo para el rechazo', 'error');
+                        return;
+                    }
+                    rejectRequest(requestId, motivo);
+                }
+            );
+        }
+
+        function viewRequest(requestId) {
+            console.log('[v0] Cargando detalles de solicitud:', requestId);
+            showLoading();
+            
+            google.script.run
+                .withSuccessHandler(function(result) {
+                    hideLoading();
+                    console.log('[v0] Respuesta recibida:', result);
+                    
+                    if (result && result.success && result.request) {
+                        displayStaticRequestDetails(result);
+                    } else {
+                        console.log('[v0] Error en respuesta:', result);
+                        console.log('Resultado real:', JSON.stringify(result));
+                        showAlert(result?.message || 'Error al cargar detalles de la solicitud', 'error');
+                    }
+                })
+                .withFailureHandler(function(error) {
+                    hideLoading();
+                    console.log('[v0] Error en llamada:', error);
+                    showAlert('Error de conexión al cargar detalles', 'error');
+                })
+                .getRequestDetails(requestId);
+        }
+
+function displayStaticRequestDetails(data) {
+    const request = data.request;
+    
+    // Llenar información básica
+    document.getElementById('detail-id').textContent = request.id || 'N/A';
+    document.getElementById('detail-solicitante').textContent = request.nombreSolicitante || 'N/A';
+    document.getElementById('detail-correo').textContent = request.correoSolicitante || 'N/A';
+    document.getElementById('detail-proceso').textContent = request.proceso || 'N/A';
+    document.getElementById('detail-estado').textContent = request.estado || 'N/A';
+    document.getElementById('detail-fecha').textContent = request.fechaSolicitud || 'N/A';
+    document.getElementById('detail-elemento').textContent = request.nombreElemento || 'N/A';
+    document.getElementById('detail-tipo').textContent = request.tipoElemento || 'N/A';
+    document.getElementById('detail-tipo2').textContent = request.tipo2 || 'N/A';
+    document.getElementById('detail-motivoBaja').textContent = request.motivoBaja || 'N/A';
+    document.getElementById('detail-activo').textContent = request.esActivoFijo || 'N/A';
+    document.getElementById('detail-valor').textContent = request.valorRango || 'N/A';
+    document.getElementById('detail-kiloGalon').textContent = 
+    request.kiloGalon ? parseFloat(request.kiloGalon).toLocaleString('es-ES') : 'N/A';
+    document.getElementById('detail-precio').textContent = 
+    request.calculoFormatted ? parseFloat(request.calculoFormatted).toLocaleString('es-ES') : 'N/A';
+    
+    // ✅ MOSTRAR VALIDACIONES INDIVIDUALES (EXISTENTE)
+    const validationsList = document.getElementById('validationsList');
+    validationsList.innerHTML = '';
+    
+    if (data.individualValidations && data.individualValidations.length > 0) {
+        data.individualValidations.forEach(validation => {
+            const statusIcon = validation.estado === 'VALIDADA' ? '✅' : '❌';
+            const statusClass = validation.estado === 'VALIDADA' ? 'approved' : 'rejected';
+            
+            const validationDiv = document.createElement('div');
+            validationDiv.className = `validation-item ${statusClass}`;
+            validationDiv.innerHTML = `
+                <div class="validation-header">
+                    <span class="validation-validator">${statusIcon} <strong>${validation.validador}</strong></span>
+                    <span class="validation-date">${validation.fecha}</span>
+                </div>
+                <div class="validation-status">Estado: <strong>${validation.estado}</strong></div>
+                ${validation.observaciones ? `<div class="validation-obs">Observaciones: ${validation.observaciones}</div>` : ''}
+            `;
+            validationsList.appendChild(validationDiv);
+        });
+        document.getElementById('validationsSection').style.display = 'block';
+    } else {
+        document.getElementById('validationsSection').style.display = 'none';
+    }
+    
+    // ✅ MOSTRAR VALIDACIONES AMBIENTALES (EXACTAMENTE IGUAL)
+    const ambientalList = document.getElementById('ambientalValidationsList');
+    ambientalList.innerHTML = '';
+    
+    if (data.ambientalValidations && data.ambientalValidations.length > 0) {
+        data.ambientalValidations.forEach(validation => {
+            const ambientalDiv = document.createElement('div');
+            ambientalDiv.className = 'validation-item approved'; // Siempre approved para ambiental
+            ambientalDiv.innerHTML = `
+                <div class="validation-header">
+                    <span class="validation-validator"></span>
+                    <span class="validation-date">${validation.fecha}</span>
+                </div>
+                <div class="validation-status">
+                    <p><strong>Precio Real:</strong> $${parseFloat(validation.precioReal).toLocaleString('es-CO')}</p>
+                    <p><strong>Cantidad Real:</strong> ${parseFloat(validation.cantidadReal).toLocaleString('es-CO')}</p>
+                    ${validation.observaciones ? `<p><strong>Observaciones:</strong> ${validation.observaciones}</p>` : ''}
+                    <p><strong>Validado por:</strong> ${validation.validadoPor || 'N/A'}</p>
+                </div>
+            `;
+            ambientalList.appendChild(ambientalDiv);
+        });
+        document.getElementById('ambientalValidationSection').style.display = 'block';
+    } else {
+        document.getElementById('ambientalValidationSection').style.display = 'none';
+    }
+    
+    // Mostrar observaciones si existen
+    if (request.observaciones) {
+        document.getElementById('detail-observaciones').textContent = request.observaciones;
+        document.getElementById('observationsSection').style.display = 'block';
+    } else {
+        document.getElementById('observationsSection').style.display = 'none';
+    }
+    
+    // Mostrar modal
+    document.getElementById('detailModal').style.display = 'block';
+}   
+
+        function closeModal() {
+            document.getElementById('detailModal').style.display = 'none';
+            currentRequestId = null;
+        }
+
+</script>

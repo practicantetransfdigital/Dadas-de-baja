@@ -1,0 +1,182 @@
+<script>
+
+
+        // ═══════════════════════════════════════════════════════════════════════════════
+        // EVENT LISTENERS
+        // ═══════════════════════════════════════════════════════════════════════════════
+
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            showLoading();
+            google.script.run
+                .withSuccessHandler(function(result) {
+                    hideLoading();
+                    if (result.success) {
+                        currentUser = result.user;
+                        updateUserInterface();
+                        showDashboard();
+                        showAlert('Bienvenido al sistema', 'success');
+                    } else {
+                        showAlert(result.message, 'error');
+                    }
+                })
+                .withFailureHandler(function(error) {
+                    hideLoading();
+                    showAlert('Error de conexión', 'error');
+                })
+                .loginUser(email, password);
+        });
+
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const userData = Object.fromEntries(formData);
+            
+            showLoading();
+            google.script.run
+                .withSuccessHandler(function(result) {
+                    hideLoading();
+                    if (result.success) {
+                        showAlert('Usuario registrado exitosamente', 'success');
+                        showLogin();
+                        e.target.reset();
+                    } else {
+                        showAlert(result.message, 'error');
+                    }
+                })
+                .withFailureHandler(function(error) {
+                    hideLoading();
+                    showAlert('Error de conexión', 'error');
+                })
+                .registerUser(userData);
+        });
+
+        document.getElementById('newRequestForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const requestData = Object.fromEntries(formData);
+            
+            const motivos = Array.from(document.querySelectorAll('input[name="motivos"]:checked'))
+                .map(checkbox => checkbox.value);
+            
+            if (motivos.length === 0) {
+                showAlert('Debe seleccionar al menos un motivo de baja', 'error');
+                return;
+            }
+            
+            requestData.motivos = motivos.join(', ');
+            requestData.correoSolicitante = currentUser.correo;
+            requestData.nombreSolicitante = currentUser.nombre;
+            
+            showLoading();
+            google.script.run
+                .withSuccessHandler(function(result) {
+                    hideLoading();
+                    if (result.success) {
+                        showAlert('Solicitud enviada exitosamente', 'success');
+                        e.target.reset();
+                        toggleValorRango();
+                    } else {
+                        showAlert(result.message, 'error');
+                    }
+                })
+                .withFailureHandler(function(error) {
+                    hideLoading();
+                    showAlert('Error de conexión', 'error');
+                })
+                .submitRequest(requestData);
+        });
+
+        // Cerrar modal al hacer clic fuera
+        window.onclick = function(event) {
+            const detailModal = document.getElementById('detailModal');
+            const customModal = document.getElementById('customModal');
+            
+            if (event.target === detailModal) {
+                closeModal();
+            }
+            if (event.target === customModal) {
+                closeCustomModal();
+            }
+        }
+
+        // Al cargar la página, verificar si hay un usuario autenticado
+        window.onload = function() {
+            google.script.run
+                .withSuccessHandler(function(user) {
+                    if (user) {
+                        currentUser = user;
+                        updateUserInterface();
+                        showDashboard();
+                    } else {
+                        showLogin();
+                    }
+                })
+                .getLoggedInUser();
+        };
+
+let precioUnitario = null;
+
+// Cuando selecciona Tipo II
+document.getElementById("tipo2").addEventListener("change", function () {
+  const tipo = this.value;
+  console.log("Tipo seleccionado:", tipo);
+
+  if (tipo) {
+    document.getElementById("kiloGalon").parentElement.style.display = "block";
+
+    // Llamada a Apps Script para traer el precio
+    google.script.run.withSuccessHandler(function (precio) {
+      console.log("Precio recibido:", precio);
+      precioUnitario = precio;
+    }).getPrecioPorTipo(tipo);
+
+  } else {
+    document.getElementById("kiloGalon").parentElement.style.display = "none";
+    document.getElementById("calculoPrecio").parentElement.style.display = "none";
+    document.getElementById("valorRangoGroup").style.display = "none";
+    precioUnitario = null;
+  }
+});
+
+document.getElementById("kiloGalon").addEventListener("change", function () {
+  const cantidad = parseFloat(this.value);
+  console.log("Cantidad ingresada:", cantidad, "Precio unitario:", precioUnitario);
+
+  if (!isNaN(cantidad) && precioUnitario !== null) {
+    const total = cantidad * precioUnitario;
+    console.log("Total calculado:", total);
+
+    // Mostrar en el input de precio
+    document.getElementById("calculoPrecio").value = total.toLocaleString("es-CO", {
+      minimumFractionDigits: 2,
+    });
+    document.getElementById("calculoPrecio").parentElement.style.display = "block";
+
+    const valorRangoGroup = document.getElementById("valorRangoGroup");
+    const valorRango = document.getElementById("valorRango");
+
+    valorRangoGroup.style.display = "block";
+    if (total > 5000000) {
+      valorRango.value = "MAYOR_5M";
+    } else {
+      valorRango.value = "MENOR_5M";
+    }
+
+    if (!window.currentRequest) window.currentRequest = {};
+    window.currentRequest.calculoPrecio = total;
+    window.currentRequest.calculoFormatted = total.toLocaleString("es-CO", {
+      minimumFractionDigits: 2,
+    });
+    window.currentRequest.valorRango = valorRango.value;
+
+  } else {
+    document.getElementById("calculoPrecio").parentElement.style.display = "none";
+    document.getElementById("valorRangoGroup").style.display = "none";
+  }
+});
+
+</script>

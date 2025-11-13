@@ -1,0 +1,73 @@
+        
+    <script>
+
+        let currentUser = null;
+
+        // ═══════════════════════════════════════════════════════════════════════════════
+        // FUNCIONES DE AUTENTICACIÓN Y NAVEGACIÓN
+        // ═══════════════════════════════════════════════════════════════════════════════
+
+        function showLogin() {
+            document.getElementById('loginScreen').style.display = 'flex';
+            document.getElementById('registerScreen').style.display = 'none';
+        }
+
+        function showRegister() {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('registerScreen').style.display = 'flex';
+        }
+
+        function showDashboard() {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('registerScreen').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'flex';
+        }
+
+        function logout() {
+            currentUser = null;
+            document.getElementById('dashboard').style.display = 'none';
+            document.getElementById('loginScreen').style.display = 'flex';
+            showAlert('Sesión cerrada exitosamente', 'success');
+        }
+
+        function showNewRequest() {
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            document.getElementById('newRequestContent').style.display = 'block';
+            
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            document.getElementById('navNuevaSolicitud').classList.add('active');
+        }
+
+        function showHistory() {
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            document.getElementById('historyContent').style.display = 'block';
+            
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            document.getElementById('navHistorial').classList.add('active');
+            
+            loadUserHistory();
+        }
+
+        function showAdmin() {
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            document.getElementById('adminContent').style.display = 'block';
+            
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            document.getElementById('navAdministracion').classList.add('active');
+            
+            loadAdminRequestsWithDebug();
+        }
+
+</script>  

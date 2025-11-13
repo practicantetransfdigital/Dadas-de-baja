@@ -1,0 +1,186 @@
+<script>
+
+        // ═══════════════════════════════════════════════════════════════════════════════
+        // FUNCIONES DE CARGA DE DATOS
+        // ═══════════════════════════════════════════════════════════════════════════════
+
+        function loadUserHistory() {
+            if (!currentUser) return;
+            
+            showLoading();
+            google.script.run
+                .withSuccessHandler(function(requests) {
+                    hideLoading();
+                    displayUserHistory(requests);
+                })
+                .withFailureHandler(function(error) {
+                    hideLoading();
+                    showAlert('Error al cargar historial', 'error');
+                })
+                .getUserRequests(currentUser.correo);
+        }
+
+        function loadAdminRequestsWithDebug() {
+  console.log('🔧 Cargando solicitudes admin en modo debug...');
+  
+  showLoading();
+  google.script.run
+    .withSuccessHandler(function(requests) {
+      hideLoading();
+      console.log('📋 Solicitudes recibidas en debug:', requests);
+      
+      if (!requests || requests.length === 0) {
+        console.log('ℹ️ No hay solicitudes para este usuario');
+        document.getElementById('adminTableBody').innerHTML = 
+          '<tr><td colspan="7" style="text-align: center;">No hay solicitudes pendientes para validar</td></tr>';
+        return;
+      }
+      
+      // Usar la versión simple para mostrar
+      displayAdminRequests(requests);
+    })
+    .withFailureHandler(function(error) {
+      hideLoading();
+      console.error('❌ Error en loadAdminRequestsWithDebug:', error);
+      
+      // Mostrar mensaje de error al usuario
+      document.getElementById('adminTableBody').innerHTML = 
+        '<tr><td colspan="7" style="text-align: center; color: red;">Error al cargar solicitudes: ' + error.message + '</td></tr>';
+    })
+    .getAdminRequests(currentUser);
+}
+
+        function displayUserHistory(requests) {
+            const tbody = document.getElementById('historyTableBody');
+            tbody.innerHTML = '';
+            
+            if (!requests || requests.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">No hay solicitudes registradas por tu parte</td></tr>';
+                return;
+            }
+            
+            requests.forEach(request => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${request.id}</td>
+                    <td>${request.proceso}</td>
+                    <td>${request.nombreElemento}</td>
+                    <td><span class="status-badge status-${request.estado.toLowerCase()}">${request.estado}</span></td>
+                    <td>${formatDate(request.fechaSolicitud)}</td>
+                    <td>
+                        <button class="btn btn-sm btn-info" onclick="viewRequest('${request.id}')">
+                             Ver
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+ function displayAdminRequests(requests) {
+    const tbody = document.getElementById('adminTableBody');
+    tbody.innerHTML = '';
+    
+    if (!requests || requests.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align: center;">No hay solicitudes para validar</td></tr>';
+        return;
+    }
+    
+    // Primero obtener todas las validaciones existentes para estas solicitudes
+    const requestIds = requests.map(req => req.id);
+    
+    showLoading();
+    google.script.run
+        .withSuccessHandler(function(allValidations) {
+            hideLoading();
+            
+            requests.forEach(request => {
+                const row = document.createElement('tr');
+                
+                // Buscar si el usuario actual ya validó esta solicitud
+                const userValidations = allValidations.filter(validation => 
+                    validation.requestId == request.id && 
+                    validation.correoValidador === currentUser.correo
+                );
+                
+                const userAlreadyValidated = userValidations.length > 0;
+                const canValidate = request.estado === 'PENDIENTE_VALIDACION' && !userAlreadyValidated;
+                
+                row.innerHTML = `
+                    <td>${request.id}</td>
+                    <td>${request.nombreSolicitante}</td>
+                    <td>${request.proceso}</td>
+                    <td>${request.nombreElemento}</td>
+                    <td><span class="status-badge status-${request.estado.toLowerCase()}">${request.estado}</span></td>
+                    <td>${formatDate(request.fechaSolicitud)}</td>
+                    <td>
+                        <button class="btn btn-sm btn-info" onclick="viewRequest('${request.id}')">
+                            <span></span> Ver
+                        </button>
+                        ${canValidate ? `
+                            <button class="btn btn-sm btn-success" onclick="showValidateRequestModal('${request.id}')">
+                                <span>✅</span> 
+                            </button>
+                            <button class="btn btn-sm btn-danger" onclick="showRejectRequestModal('${request.id}')">
+                                <span>❌</span> 
+                            </button>
+                        ` : userAlreadyValidated ? `
+                            <span class="already-validated-badge">✅</span>
+                        ` : ''}
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        })
+        .withFailureHandler(function(error) {
+            hideLoading();
+            console.error('Error al cargar validaciones:', error);
+            // Si falla, mostrar todos los botones por seguridad
+            displayAdminRequestsFallback(requests);
+        })
+        .getMultipleValidations(requestIds);
+}
+
+// Función de respaldo por si falla la carga de validaciones
+function displayAdminRequestsFallback(requests) {
+    const tbody = document.getElementById('adminTableBody');
+    tbody.innerHTML = '';
+    
+    requests.forEach(request => {
+        const row = document.createElement('tr');
+        const canValidate = request.estado === 'PENDIENTE_VALIDACION';
+        
+        row.innerHTML = `
+            <td>${request.id}</td>
+            <td>${request.nombreSolicitante}</td>
+            <td>${request.proceso}</td>
+            <td>${request.nombreElemento}</td>
+            <td><span class="status-badge status-${request.estado.toLowerCase()}">${request.estado}</span></td>
+            <td>${formatDate(request.fechaSolicitud)}</td>
+            <td>
+                <button class="btn btn-sm btn-info" onclick="viewRequest('${request.id}')">
+                    <span></span> Ver
+                </button>
+                ${canValidate ? `
+                    <button class="btn btn-sm btn-success" onclick="showValidateRequestModal('${request.id}')">
+                        <span>✅</span> 
+                    </button>
+                    <button class="btn btn-sm btn-danger" onclick="showRejectRequestModal('${request.id}')">
+                        <span>❌</span> 
+                    </button>
+                ` : ''}
+            </td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
+        function refreshHistory() {
+            loadUserHistory();
+        }
+
+        function refreshAdmin() {
+            loadAdminRequestsWithDebug();
+        }
+
+</script>

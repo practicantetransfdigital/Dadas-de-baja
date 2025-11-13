@@ -82,7 +82,7 @@ const EMAIL_ROUTING_CONFIG = {
 // ═══════════════════════════════════════════════════════════════════════════════
 
 function doGet() {
-  return HtmlService.createTemplateFromFile('index')
+  return HtmlService.createTemplateFromFile('html/index')
     .evaluate()
     .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
 }

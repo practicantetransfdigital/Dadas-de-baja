@@ -1,0 +1,123 @@
+<script>
+
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// FUNCIONES PARA EL PANEL DE VALIDADAS
+// ═══════════════════════════════════════════════════════════════════════════════
+
+function showValidadas() {
+    console.log("🟡 Mostrando panel de Validadas");
+    
+    // Ocultar todas las secciones
+    document.querySelectorAll('.content-section').forEach(section => {
+        section.style.display = 'none';
+    });
+    
+    // Mostrar solo el panel de Validadas
+    const validadasContent = document.getElementById('validadasContent');
+    if (validadasContent) {
+        validadasContent.style.display = 'block';
+        console.log("✅ Panel Validadas mostrado");
+    } else {
+        console.error("❌ No se encuentra el elemento validadasContent");
+    }
+    
+    // Actualizar navegación activa
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.classList.remove('active');
+    });
+    
+    const navValidadas = document.getElementById('navValidadas');
+    if (navValidadas) {
+        navValidadas.classList.add('active');
+    }
+    
+    // Cargar datos
+    loadValidadasRequests();
+}
+
+function loadValidadasRequests() {
+  if (!currentUser) return;
+
+  showLoading();
+  
+  // Usar la nueva función que incluye el estado ambiental
+  google.script.run
+    .withSuccessHandler(function(validatedRequests) {
+      hideLoading();
+      console.log("📦 Datos recibidos en frontend:", validatedRequests); 
+      displayValidadasRequests(validatedRequests);
+    })
+    .withFailureHandler(function(error) {
+      hideLoading();
+      showAlert('Error al cargar solicitudes validadas', 'error');
+      console.error(error);
+    })
+    .getValidatedRequestsWithAmbientalStatus();
+}
+
+function displayValidadasRequests(requests) {
+    console.log("🟡 displayValidadasRequests ejecutándose");
+    console.log("📊 Requests recibidos:", requests);
+    
+    const tbody = document.getElementById('validadasTableBody');
+    if (!tbody) {
+        console.error("❌ NO SE ENCUENTRA el tbody con id 'validadasTableBody'");
+        showAlert('Error: No se puede mostrar la tabla', 'error');
+        return;
+    }
+    
+    console.log("✅ tbody encontrado correctamente");
+    tbody.innerHTML = '';
+    
+    if (!requests || requests.length === 0) {
+        console.log("ℹ️ No hay solicitudes validadas");
+        tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; padding: 20px;">No hay solicitudes validadas registradas</td></tr>';
+        return;
+    }
+    
+    console.log(`🟢 Procesando ${requests.length} solicitudes validadas`);
+    
+    requests.forEach((request, index) => {
+        console.log(`📝 Procesando request ${index}:`, request);
+        
+        const row = document.createElement('tr');
+        
+        // Determinar si mostrar botón de re-aprobación (solo para usuarios AMBIENTAL y si NO está ya procesado)
+        const showReaprobarButton = currentUser.rol === 'AMBIENTAL' && !request.yaProcesadoAmbiental;
+        
+        row.innerHTML = `
+            <td>${request.id || 'N/A'}</td>
+            <td>${request.nombreSolicitante || 'N/A'}</td>
+            <td>${request.proceso || 'N/A'}</td>
+            <td>${request.nombreElemento || 'N/A'}</td>
+            <td>${request.tipoElemento || 'N/A'}</td>
+            <td>${formatDate(request.fechaSolicitud)}</td>
+            <td>${formatDate(request.fechaValidacion)}</td>
+            <td>
+                <button class="btn btn-sm btn-info" onclick="viewRequest('${request.id}')">
+                    <span></span> Ver
+                </button>
+                ${showReaprobarButton ? `
+                <button class="btn btn-sm btn-success" onclick="showAmbientalValidationModal('${request.id}')" title="Re-aprobar ambientalmente">
+                    <span></span> Re-aprobar
+                </button>
+                ` : request.yaProcesadoAmbiental ? `
+                <span class="already-validated-badge">
+                    Re-aprobado
+                </span>
+                ` : ''}
+            </td>
+        `;
+        tbody.appendChild(row);
+    });
+    
+    console.log("✅ Tabla poblada exitosamente. Filas agregadas:", tbody.children.length);
+}
+
+function refreshValidadas() {
+    console.log("🔄 Actualizando panel de Validadas");
+    loadValidadasRequests();
+}
+
+</script>
