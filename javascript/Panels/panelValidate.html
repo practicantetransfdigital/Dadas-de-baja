@@ -1,12 +1,9 @@
 <script>
 
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// FUNCIONES PARA EL PANEL DE VALIDADAS
-// ═══════════════════════════════════════════════════════════════════════════════
+// PANEL DE VALIDADAS
 
 function showValidadas() {
-    console.log("🟡 Mostrando panel de Validadas");
+    console.log(" Mostrando panel de Validadas");
     
     // Ocultar todas las secciones
     document.querySelectorAll('.content-section').forEach(section => {
@@ -17,9 +14,9 @@ function showValidadas() {
     const validadasContent = document.getElementById('validadasContent');
     if (validadasContent) {
         validadasContent.style.display = 'block';
-        console.log("✅ Panel Validadas mostrado");
+        console.log("Panel Validadas mostrado");
     } else {
-        console.error("❌ No se encuentra el elemento validadasContent");
+        console.error("No se encuentra el elemento validadasContent");
     }
     
     // Actualizar navegación activa
