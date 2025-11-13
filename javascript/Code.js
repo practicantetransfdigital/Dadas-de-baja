@@ -82,8 +82,13 @@ const EMAIL_ROUTING_CONFIG = {
 // ═══════════════════════════════════════════════════════════════════════════════
 
 function doGet() {
+  const title = 'DADAS DE BAJA - COMARRICO';
+  const faviconUrl = 'https://comarrico.com/wp-content/uploads/2022/02/cropped-Logo-menu-comarrico-150x150.png';
+  
   return HtmlService.createTemplateFromFile('html/index')
     .evaluate()
+    .setTitle(title)
+    .setFaviconUrl(faviconUrl)
     .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
 }
 
