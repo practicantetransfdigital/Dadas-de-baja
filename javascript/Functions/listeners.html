@@ -52,29 +52,56 @@
         });
 
         document.getElementById('newRequestForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const formData = new FormData(e.target);
-            const requestData = Object.fromEntries(formData);
-            
-            const motivos = Array.from(document.querySelectorAll('input[name="motivos"]:checked'))
-                .map(checkbox => checkbox.value);
-            
-            if (motivos.length === 0) {
-                showAlert('Debe seleccionar al menos un motivo de baja', 'error');
-                return;
-            }
-            
-            requestData.motivos = motivos.join(', ');
-            requestData.correoSolicitante = currentUser.correo;
-            requestData.nombreSolicitante = currentUser.nombre;
-            
+    e.preventDefault();
+    
+    // Obtener datos del formulario
+    const formData = new FormData(e.target);
+    const requestData = Object.fromEntries(formData);
+    
+    const motivos = Array.from(document.querySelectorAll('input[name="motivos"]:checked'))
+        .map(checkbox => checkbox.value);
+    
+    if (motivos.length === 0) {
+        showAlert('Debe seleccionar al menos un motivo de baja', 'error');
+        return;
+    }
+    
+    requestData.motivos = motivos.join(', ');
+    requestData.correoSolicitante = currentUser.correo;
+    requestData.nombreSolicitante = currentUser.nombre;
+    
+    // Crear mensaje de confirmación
+    let confirmMessage = '¿Está seguro de enviar esta solicitud de baja?\n\n';
+    
+    if (requestData.nombreEmpleado) {
+        confirmMessage += `Empleado: ${requestData.nombreEmpleado}\n`;
+    }
+    
+    if (requestData.nombreElemento) {
+        confirmMessage += `Elemento: ${requestData.nombreElemento}\n`;
+    }
+    
+    confirmMessage += `Tipo: ${requestData.tipoElemento}\n`;
+    confirmMessage += `Motivos: ${motivos.join(', ')}`;
+    
+    if (requestData.esActivoFijo === 'SI') {
+        confirmMessage += '\n\n⚠️ NOTA: Es ACTIVO FIJO - Se creará como "CERRADO_POR_ACTIVO_FIJO"';
+    }
+    
+    // Usar tu modal existente con una función anónima
+    showCustomModal(
+        'Confirmar Envío',
+        confirmMessage,
+        false,  // No mostrar campo de observaciones
+        function() {
+            // El código de envío va DENTRO de esta función
             showLoading();
             google.script.run
                 .withSuccessHandler(function(result) {
                     hideLoading();
                     if (result.success) {
                         showAlert('Solicitud enviada exitosamente', 'success');
-                        e.target.reset();
+                        e.target.reset();  // 'e' está disponible aquí
                         toggleValorRango();
                     } else {
                         showAlert(result.message, 'error');
@@ -84,8 +111,10 @@
                     hideLoading();
                     showAlert('Error de conexión', 'error');
                 })
-                .submitRequest(requestData);
-        });
+                .submitRequest(requestData);  // 'requestData' está disponible aquí
+        }
+    );
+});
 
         // Cerrar modal al hacer clic fuera
         window.onclick = function(event) {

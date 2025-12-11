@@ -98,7 +98,7 @@
 function displayStaticRequestDetails(data) {
     const request = data.request;
     
-    // Llenar información básica
+    // Llenar información básica (igual que antes)
     document.getElementById('detail-id').textContent = request.id || 'N/A';
     document.getElementById('detail-solicitante').textContent = request.nombreSolicitante || 'N/A';
     document.getElementById('detail-correo').textContent = request.correoSolicitante || 'N/A';
@@ -112,44 +112,34 @@ function displayStaticRequestDetails(data) {
     document.getElementById('detail-activo').textContent = request.esActivoFijo || 'N/A';
     document.getElementById('detail-valor').textContent = request.valorRango || 'N/A';
     document.getElementById('detail-kiloGalon').textContent = 
-    request.kiloGalon ? parseFloat(request.kiloGalon).toLocaleString('es-ES') : 'N/A';
+        request.kiloGalon ? parseFloat(request.kiloGalon).toLocaleString('es-ES') : 'N/A';
     document.getElementById('detail-precio').textContent = 
-    request.calculoFormatted ? parseFloat(request.calculoFormatted).toLocaleString('es-ES') : 'N/A';
+        request.calculoFormatted ? parseFloat(request.calculoFormatted).toLocaleString('es-ES') : 'N/A';
     
-    // ✅ MOSTRAR VALIDACIONES INDIVIDUALES (EXISTENTE)
+    // ✅ NUEVA VERSIÓN MINIMALISTA PARA VALIDACIONES
     const validationsList = document.getElementById('validationsList');
     validationsList.innerHTML = '';
     
-    if (data.individualValidations && data.individualValidations.length > 0) {
-        data.individualValidations.forEach(validation => {
-            const statusIcon = validation.estado === 'VALIDADA' ? '✅' : '❌';
-            const statusClass = validation.estado === 'VALIDADA' ? 'approved' : 'rejected';
-            
-            const validationDiv = document.createElement('div');
-            validationDiv.className = `validation-item ${statusClass}`;
-            validationDiv.innerHTML = `
-                <div class="validation-header">
-                    <span class="validation-validator">${statusIcon} <strong>${validation.validador}</strong></span>
-                    <span class="validation-date">${validation.fecha}</span>
-                </div>
-                <div class="validation-status">Estado: <strong>${validation.estado}</strong></div>
-                ${validation.observaciones ? `<div class="validation-obs">Observaciones: ${validation.observaciones}</div>` : ''}
-            `;
-            validationsList.appendChild(validationDiv);
-        });
-        document.getElementById('validationsSection').style.display = 'block';
-    } else {
-        document.getElementById('validationsSection').style.display = 'none';
-    }
+    // Obtener configuración de equipos
+    google.script.run
+        .withSuccessHandler(function(teamsConfig) {
+            displayTeamsAndValidatorsMinimalist(data, teamsConfig);
+        })
+        .withFailureHandler(function(error) {
+            console.error('Error al obtener equipos:', error);
+            // Fallback: mostrar solo validaciones existentes
+            displayFallbackValidations(data.individualValidations);
+        })
+        .getRequiredValidators(request.proceso, request.tipoElemento, request.valorRango);
     
-    // ✅ MOSTRAR VALIDACIONES AMBIENTALES (EXACTAMENTE IGUAL)
+    // ✅ VALIDACIONES AMBIENTALES (igual que antes)
     const ambientalList = document.getElementById('ambientalValidationsList');
     ambientalList.innerHTML = '';
     
     if (data.ambientalValidations && data.ambientalValidations.length > 0) {
         data.ambientalValidations.forEach(validation => {
             const ambientalDiv = document.createElement('div');
-            ambientalDiv.className = 'validation-item approved'; // Siempre approved para ambiental
+            ambientalDiv.className = 'validation-item approved';
             ambientalDiv.innerHTML = `
                 <div class="validation-header">
                     <span class="validation-validator"></span>
@@ -158,6 +148,7 @@ function displayStaticRequestDetails(data) {
                 <div class="validation-status">
                     <p><strong>Precio Real:</strong> $${parseFloat(validation.precioReal).toLocaleString('es-CO')}</p>
                     <p><strong>Cantidad Real:</strong> ${parseFloat(validation.cantidadReal).toLocaleString('es-CO')}</p>
+                    <p><strong>Proveedor:</strong> ${validation.proveedor} </p>
                     ${validation.observaciones ? `<p><strong>Observaciones:</strong> ${validation.observaciones}</p>` : ''}
                     <p><strong>Validado por:</strong> ${validation.validadoPor || 'N/A'}</p>
                 </div>
@@ -179,11 +170,220 @@ function displayStaticRequestDetails(data) {
     
     // Mostrar modal
     document.getElementById('detailModal').style.display = 'block';
-}   
+}
+   
 
         function closeModal() {
             document.getElementById('detailModal').style.display = 'none';
             currentRequestId = null;
         }
+
+ // NUEVA FUNCIÓN CORREGIDA: Versión ultra minimalista
+function displayTeamsAndValidatorsMinimalist(data, teamsConfig) {
+    const validationsList = document.getElementById('validationsList');
+    const individualValidations = data.individualValidations || [];
+    const request = data.request;
+    
+    // Limpiar lista
+    validationsList.innerHTML = '';
+    
+    // Crear mapa de validaciones por correo
+    const validationMap = {};
+    individualValidations.forEach(v => {
+        validationMap[v.correoValidador] = v;
+    });
+    
+    // Título de la sección
+    const titleDiv = document.createElement('div');
+    titleDiv.style.cssText = 'font-size: 16px; font-weight: 600; color: #2c3e50; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid #f0f0f0;';
+    titleDiv.innerHTML = '📋 <strong>ESTADO DE VALIDACIÓN POR EQUIPO</strong>';
+    validationsList.appendChild(titleDiv);
+    
+    // Variables para contar
+    let equiposValidados = 0;
+    let equiposPendientes = 0;
+    
+    // Recorrer todos los equipos
+    for (const teamName in teamsConfig) {
+        const teamMembers = teamsConfig[teamName];
+        
+        // Verificar si el equipo ya está validado
+        let teamValidated = false;
+        let validatedBy = null;
+        
+        for (const email of teamMembers) {
+            const validation = validationMap[email];
+            if (validation && validation.estado === 'VALIDADA') {
+                teamValidated = true;
+                validatedBy = validation;
+                break;
+            }
+        }
+        
+        if (teamValidated) {
+            equiposValidados++;
+        } else {
+            equiposPendientes++;
+        }
+        
+        // Crear elemento del equipo
+        const teamDiv = document.createElement('div');
+        teamDiv.className = 'team-item';
+        teamDiv.style.marginBottom = '15px';
+        
+        // Contenido base del equipo
+        let teamContent = `
+            <div class="team-header">
+                <div class="team-name">${teamName}</div>
+                <div class="team-status ${teamValidated ? 'team-validated' : 'team-pending'}">
+                    ${teamValidated ? '✅ Validado' : '⏳ Pendiente'}
+                </div>
+            </div>
+        `;
+        
+        if (teamValidated && validatedBy) {
+            // Equipo ya validado
+            teamContent += `
+                <div class="team-validated-by" style="margin-top: 8px;">
+                    <strong>Validado por:</strong> ${validatedBy.validador} 
+                    <span style="color: #666; font-size: 12px;">(${validatedBy.correoValidador})</span>
+                    ${validatedBy.fecha ? `<br><span style="font-size: 11px; color: #888;">${validatedBy.fecha}</span>` : ''}
+                </div>
+            `;
+            
+            if (validatedBy.observaciones) {
+                teamContent += `
+                    <div class="team-observations" style="margin-top: 6px;">
+                        <strong>Observaciones:</strong> ${validatedBy.observaciones}
+                    </div>
+                `;
+            }
+        } else {
+            // Equipo pendiente - mostrar miembros que faltan
+            // Filtrar solo los que NO han validado
+            const miembrosPendientes = teamMembers.filter(email => {
+                const validation = validationMap[email];
+                return !validation || validation.estado !== 'VALIDADA';
+            });
+            
+            if (miembrosPendientes.length > 0) {
+                teamContent += `
+                    <div class="team-pending-members" style="margin-top: 10px; padding: 10px; background: #fff8e1; border-radius: 6px; border-left: 4px solid #FF9800;">
+                        <div class="pending-members-title" style="color: #e65100; font-weight: 600; margin-bottom: 8px; font-size: 13px;">
+                            ⏳ <strong>FALTAN POR VALIDAR:</strong> ${miembrosPendientes.length} miembro(s)
+                        </div>
+                        <div style="display: flex; flex-wrap: wrap; gap: 5px;">
+                            ${miembrosPendientes.map(email => `
+                                <span class="team-member" style="background: #fff3e0; border: 1px solid #ffd699; color: #e65100; padding: 4px 10px; border-radius: 12px; font-size: 11px;">
+                                    ${email}
+                                </span>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+        }
+        
+        teamDiv.innerHTML = teamContent;
+        validationsList.appendChild(teamDiv);
+    }
+    
+    // Agregar pequeño resumen al final
+    if (Object.keys(teamsConfig).length > 0) {
+        const summaryDiv = document.createElement('div');
+        summaryDiv.style.cssText = 'margin-top: 20px; padding: 12px; background: #f8f9fa; border-radius: 8px; border: 1px solid #e0e0e0; font-size: 13px;';
+        summaryDiv.innerHTML = `
+            <div style="display: flex; justify-content: space-around; text-align: center;">
+                <div>
+                    <div style="font-size: 18px; font-weight: bold; color: #4CAF50;">${equiposValidados}</div>
+                    <div style="font-size: 11px; color: #666;">Equipos Validados</div>
+                </div>
+                <div>
+                    <div style="font-size: 18px; font-weight: bold; color: #FF9800;">${equiposPendientes}</div>
+                    <div style="font-size: 11px; color: #666;">Equipos Pendientes</div>
+                </div>
+            </div>
+        `;
+        validationsList.appendChild(summaryDiv);
+    }
+    
+    // Mostrar sección
+    document.getElementById('validationsSection').style.display = 'block';
+}
+
+// CSS adicional para mejorar la visualización
+const additionalCSS = `
+<style>
+.team-item {
+    margin-bottom: 12px;
+    padding: 15px;
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.team-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.team-name {
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 14px;
+}
+
+.team-status {
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-weight: 500;
+}
+
+.team-validated {
+    background: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #c8e6c9;
+}
+
+.team-pending {
+    background: #fff3e0;
+    color: #e65100;
+    border: 1px solid #ffd699;
+}
+
+.team-validated-by {
+    font-size: 13px;
+    color: #2e7d32;
+    margin: 8px 0;
+    padding: 8px 10px;
+    background: #f1f8e9;
+    border-radius: 6px;
+}
+
+.team-observations {
+    font-size: 12px;
+    color: #555;
+    padding: 8px 10px;
+    background: #f0f8ff;
+    border-radius: 6px;
+    border-left: 3px solid #2196F3;
+    margin-top: 8px;
+}
+</style>
+`;
+
+// Agregar CSS al documento si no existe
+if (!document.getElementById('additional-validation-css')) {
+    const styleElement = document.createElement('style');
+    styleElement.id = 'additional-validation-css';
+    styleElement.innerHTML = additionalCSS;
+    document.head.appendChild(styleElement);
+}
 
 </script>

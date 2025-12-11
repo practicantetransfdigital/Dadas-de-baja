@@ -1,7 +1,5 @@
 <script>
 
-// RE-APROBACIÓN
-
 function showAmbientalValidationModal(requestId) {
     currentRequestId = requestId;
     
@@ -33,6 +31,7 @@ document.getElementById('ambientalForm').addEventListener('submit', function(e) 
     
     const precioReal = document.getElementById('ambientalPrecioReal').value;
     const cantidadReal = document.getElementById('ambientalCantidadReal').value;
+    const proveedor = document.getElementById('ambientalProveedor').value;
     const observaciones = document.getElementById('ambientalObservaciones').value;
     
     if (!precioReal || !cantidadReal) {
@@ -40,11 +39,11 @@ document.getElementById('ambientalForm').addEventListener('submit', function(e) 
         return;
     }
     
-    submitAmbientalValidation(currentRequestId, precioReal, cantidadReal, observaciones);
+    submitAmbientalValidation(currentRequestId, precioReal, cantidadReal, proveedor, observaciones);
 });
 
-function submitAmbientalValidation(requestId, precioReal, cantidadReal, observaciones) {
-    console.log('🌱 Enviando re-aprobación ambiental:', { requestId, precioReal, cantidadReal, observaciones });
+function submitAmbientalValidation(requestId, precioReal, cantidadReal, proveedor, observaciones) {
+    console.log('🌱 Enviando re-aprobación ambiental:', { requestId, precioReal, cantidadReal, proveedor, observaciones });
     showLoading();
     
     google.script.run
@@ -64,7 +63,7 @@ function submitAmbientalValidation(requestId, precioReal, cantidadReal, observac
             showAlert('Error de conexión al registrar re-aprobación ambiental', 'error');
             console.error(error);
         })
-        .submitAmbientalValidation(requestId, precioReal, cantidadReal, observaciones, currentUser);
+        .submitAmbientalValidation(requestId, precioReal, cantidadReal, proveedor, observaciones, currentUser);
 }
 
 // Actualizar el event listener para cerrar modal ambiental
