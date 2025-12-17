@@ -15,8 +15,6 @@ Aplicación para gestionar solicitudes de **dadas de baja** (retiro, desincorpor
 - [🔄 Ciclo de Vida de una Solicitud](#-ciclo-de-vida-de-una-solicitud)
 - [👤 Roles y Permisos](#-roles-y-permisos)
 - [📁 Estructura de Archivos](#-estructura-de-archivos)
-- [🚀 Instalación y Despliegue](#-instalación-y-despliegue)
-- [📜 Licencia](#-licencia)
 
 
 ---
