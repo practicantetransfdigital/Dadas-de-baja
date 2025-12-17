@@ -1,4 +1,4 @@
-# 📦 Sistema de Gestión de Dadas de Baja – COMARRICO
+# 📦 Sistema de Gestión de Dadas de Baja – NEGOCIO PASTAS
 
 Aplicación para gestionar solicitudes de **dadas de baja** (retiro, desincorporación o eliminación) de equipos, materiales y activos dentro de los procesos de COMARRICO, con múltiples niveles de validación y automatización de correos y estados.
 
