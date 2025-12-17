@@ -194,6 +194,8 @@ Dadas-de-baja/
 │       └── Modals.html
 └── README.md
 
+```
+
 ![Arquitectura del sistema](docs/arquitectura.svg)
 
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/practicantetransfdigital/Dadas-de-baja)
