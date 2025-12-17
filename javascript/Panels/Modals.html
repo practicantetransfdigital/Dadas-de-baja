@@ -149,6 +149,7 @@ function displayStaticRequestDetails(data) {
                     <p><strong>Precio Real:</strong> $${parseFloat(validation.precioReal).toLocaleString('es-CO')}</p>
                     <p><strong>Cantidad Real:</strong> ${parseFloat(validation.cantidadReal).toLocaleString('es-CO')}</p>
                     <p><strong>Proveedor:</strong> ${validation.proveedor} </p>
+                    <p><strong>No. del Ticket Control Bascula:</strong> ${validation.ticketBascula || 'N/A'} </p>
                     ${validation.observaciones ? `<p><strong>Observaciones:</strong> ${validation.observaciones}</p>` : ''}
                     <p><strong>Validado por:</strong> ${validation.validadoPor || 'N/A'}</p>
                 </div>

@@ -1862,7 +1862,7 @@ function getOrCreateAmbientalValidacionesSheet(ss) {
   return sheet;
 }
 
-function submitAmbientalValidation(requestId, precioReal, cantidadReal, proveedor, observaciones, validador) {
+function submitAmbientalValidation(requestId, precioReal, cantidadReal, proveedor, observaciones, ticketBascula, validador) {
   try {
     console.log(`🌱 Validando ambientalmente solicitud ID: ${requestId} por ${validador.nombre}`);
     
@@ -1927,13 +1927,14 @@ function submitAmbientalValidation(requestId, precioReal, cantidadReal, proveedo
       parseFloat(precioReal),
       parseFloat(cantidadReal),
       proveedor || '',
+      ticketBascula || '',
       observaciones || '',
       new Date(),
       validador.nombre
     ]);
     
     // Enviar notificación
-    enviarNotificacionAmbiental(requestData, precioReal, cantidadReal, proveedor, observaciones, validador);
+    enviarNotificacionAmbiental(requestData, precioReal, cantidadReal, proveedor, observaciones, ticketBascula, validador);
     
     console.log(`✅ Validación ambiental registrada exitosamente para ID: ${requestId}`);
     return { 
@@ -1948,7 +1949,7 @@ function submitAmbientalValidation(requestId, precioReal, cantidadReal, proveedo
   }
 }
 
-function enviarNotificacionAmbiental(requestData, precioReal, cantidadReal, proveedor, observaciones, validador) {
+function enviarNotificacionAmbiental(requestData, precioReal, cantidadReal, proveedor, observaciones, ticketBascula, validador) {
   try {
     console.log(`📧 Enviando notificación de validación ambiental para ID: ${requestData.id}`);
     
@@ -1972,6 +1973,7 @@ function enviarNotificacionAmbiental(requestData, precioReal, cantidadReal, prov
       <tr><td style="padding:8px; border-bottom:1px solid #eee;"><strong>Precio Real:</strong></td><td style="padding:8px; border-bottom:1px solid #eee;">$${parseFloat(precioReal).toLocaleString('es-CO')}</td></tr>
       <tr><td style="padding:8px; border-bottom:1px solid #eee;"><strong>Cantidad Real:</strong></td><td style="padding:8px; border-bottom:1px solid #eee;">${parseFloat(cantidadReal).toLocaleString('es-CO')}</td></tr>
        <tr><td style="padding:8px; border-bottom:1px solid #eee;"><strong>Proveedor:</strong></td><td style="padding:8px; border-bottom:1px solid #eee;">${proveedor}</td></tr>
+       <tr><td style="padding:8px; border-bottom:1px solid #eee;"><strong>No. del ticket de Control Bascula:</strong></td><td style="padding:8px; border-bottom:1px solid #eee;">${ticketBascula}</td></tr>
       <tr><td style="padding:8px;"><strong>Validado por:</strong></td><td style="padding:8px;">${validador.nombre} (${validador.correo})</td></tr>
     </table>
 
@@ -2024,9 +2026,10 @@ function getAmbientalValidations(requestId) {
                     precioReal: data[i][6] || '',
                     cantidadReal: data[i][7] || '',
                     proveedor: data[i][8] || '',
-                    observaciones: data[i][9] || '',
-                    fecha: data[i][10] ? formatDate(data[i][10]) : '',
-                    validadoPor: data[i][11] || ''
+                    ticketBascula: data[i][9] || '',
+                    observaciones: data[i][10] || '',
+                    fecha: data[i][11] ? formatDate(data[i][11]) : '',
+                    validadoPor: data[i][12] || ''
                 });
             }
         }
