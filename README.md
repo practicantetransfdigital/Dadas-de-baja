@@ -6,17 +6,18 @@ Aplicación para gestionar solicitudes de **dadas de baja** (retiro, desincorpor
 
 ## 🧠 Tabla de Contenidos
 
-- 📌 Descripción  
-- 🎯 Objetivos del Proyecto  
-- 🧩 Arquitectura del Sistema  
-- ⚙️ Funcionalidades Principales  
-- 🛠️ Tecnologías Utilizadas  
-- 📊 Modelo de Datos  
-- 🔄 Ciclo de Vida de una Solicitud  
-- 👤 Roles y Permisos  
-- 📁 Estructura de Archivos  
-- 🚀 Instalación y Despliegue  
-- 📜 Licencia  
+- [📌 Descripción](#-descripción)
+- [🎯 Objetivos del Proyecto](#-objetivos-del-proyecto)
+- [🧩 Arquitectura del Sistema](#-arquitectura-del-sistema)
+- [⚙️ Funcionalidades Principales](#️-funcionalidades-principales)
+- [🛠️ Tecnologías Utilizadas](#️-tecnologías-utilizadas)
+- [📊 Modelo de Datos](#️-modelo-de-datos)
+- [🔄 Ciclo de Vida de una Solicitud](#-ciclo-de-vida-de-una-solicitud)
+- [👤 Roles y Permisos](#-roles-y-permisos)
+- [📁 Estructura de Archivos](#-estructura-de-archivos)
+- [🚀 Instalación y Despliegue](#-instalación-y-despliegue)
+- [📜 Licencia](#-licencia)
+
 
 ---
 
