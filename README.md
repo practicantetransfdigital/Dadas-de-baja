@@ -183,14 +183,27 @@ El proyecto utiliza **Google Sheets** como almacenamiento principal.
 ## Estructura de Archivos
 
 ```text
-Dadas-de-baja/
-├── backend/
-│   └── Code.js
+
+CLASP - DDBJ/
+├── docs/
 ├── html/
-│   └── index.html
-├── javascript/
-│   └── Panels/
-│       └── Modals.html
+│   ├── index.html
+│   └── styles.html
+├── JavaScript/
+│   ├── Functions/
+│   │   ├── Auth.html
+│   │   ├── listenCtpips.html
+│   │   └── Utils.html
+│   ├── Panels/
+│   │   ├── loadData.html
+│   │   ├── Modals.html
+│   │   ├── panelValidate.html
+│   │   ├── reaprove.html
+│   │   └── Validate.html
+│   └── Code.js
+├── .clasp.json
+├── appsscript.json
+├── Code.js
 └── README.md
 
 ```
