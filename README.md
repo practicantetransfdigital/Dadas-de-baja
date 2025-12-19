@@ -94,7 +94,7 @@ Todo filtrable por usuario o rol.
 
 ---
 
-## 🛠️ Tecnologías Utilizadas
+## Tecnologías Utilizadas
 
 | Componente | Tecnología |
 |----------|------------|
