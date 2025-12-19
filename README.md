@@ -195,6 +195,10 @@ Dadas-de-baja/
 
 ```
 
+---
+
+## Flujo del Sistema
+
 ![Arquitectura del sistema](docs/DDBJ.svg)
 
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/practicantetransfdigital/Dadas-de-baja)
