@@ -1,25 +1,25 @@
-# 📦 Sistema de Gestión de Dadas de Baja – NEGOCIO PASTAS
+# Sistema de Gestión de Dadas de Baja – NEGOCIO PASTAS
 
 Aplicación para gestionar solicitudes de **dadas de baja** (retiro, desincorporación o eliminación) de equipos, materiales y activos dentro de los procesos de COMARRICO, con múltiples niveles de validación y automatización de correos y estados.
 
 ---
 
-## 🧠 Tabla de Contenidos
+## Tabla de Contenidos
 
-- [📌 Descripción](#-descripción)
-- [🎯 Objetivos del Proyecto](#-objetivos-del-proyecto)
-- [🧩 Arquitectura del Sistema](#-arquitectura-del-sistema)
-- [⚙️ Funcionalidades Principales](#️-funcionalidades-principales)
-- [🛠️ Tecnologías Utilizadas](#️-tecnologías-utilizadas)
-- [📊 Modelo de Datos](#️-modelo-de-datos)
-- [🔄 Ciclo de Vida de una Solicitud](#-ciclo-de-vida-de-una-solicitud)
-- [👤 Roles y Permisos](#-roles-y-permisos)
-- [📁 Estructura de Archivos](#-estructura-de-archivos)
+- [Descripción](#-descripción)
+- [Objetivos del Proyecto](#-objetivos-del-proyecto)
+- [Arquitectura del Sistema](#-arquitectura-del-sistema)
+- [Funcionalidades Principales](#️-funcionalidades-principales)
+- [Tecnologías Utilizadas](#️-tecnologías-utilizadas)
+- [Modelo de Datos](#️-modelo-de-datos)
+- [Ciclo de Vida de una Solicitud](#-ciclo-de-vida-de-una-solicitud)
+- [Roles y Permisos](#-roles-y-permisos)
+- [Estructura de Archivos](#-estructura-de-archivos)
 
 
 ---
 
-## 📌 Descripción
+## Descripción
 
 El **Sistema de Dadas de Baja** es una aplicación web interna creada para COMARRICO que permite automatizar el proceso de solicitud, validación por múltiples equipos y aprobación final para dar de baja activos, materiales o equipos.
 
@@ -27,7 +27,7 @@ El sistema gestiona flujos complejos de aprobación y notificación, permite vis
 
 ---
 
-## 🎯 Objetivos del Proyecto
+## Objetivos del Proyecto
 
 - Registrar y manejar solicitudes de dadas de baja de manera ordenada.  
 - Automatizar el flujo de validación por equipos especializados.  
@@ -36,7 +36,7 @@ El sistema gestiona flujos complejos de aprobación y notificación, permite vis
 
 ---
 
-## 🧩 Arquitectura del Sistema
+## Arquitectura del Sistema
 
 El sistema sigue una arquitectura de **3 capas**, con separación clara de presentación, lógica de negocio y almacenamiento:
 
@@ -49,9 +49,9 @@ El sistema sigue una arquitectura de **3 capas**, con separación clara de prese
 
 ---
 
-## ⚙️ Funcionalidades Principales
+## Funcionalidades Principales
 
-### 📝 Envío de Solicitudes
+### Envío de Solicitudes
 
 Permite a cualquier usuario crear una solicitud de dada de baja ingresando datos como:
 
@@ -64,7 +64,7 @@ Permite a cualquier usuario crear una solicitud de dada de baja ingresando datos
 
 ---
 
-### ✔️ Validaciones por Equipos
+### Validaciones por Equipos
 
 Una vez enviada la solicitud, esta pasa por un **flujo de validación multiequipo**:
 
@@ -75,14 +75,14 @@ Una vez enviada la solicitud, esta pasa por un **flujo de validación multiequip
 
 ---
 
-### 📬 Notificaciones Automáticas
+### Notificaciones Automáticas
 
 - Envío de correos electrónicos en cada cambio de estado clave  
 - Notificación de envío, validación, aceptación o rechazo  
 
 ---
 
-### 📊 Tablas y Filtros
+### Tablas y Filtros
 
 La interfaz permite visualizar:
 
@@ -107,11 +107,11 @@ Todo filtrable por usuario o rol.
 
 ---
 
-## 📊 Modelo de Datos
+## Modelo de Datos
 
 El proyecto utiliza **Google Sheets** como almacenamiento principal.
 
-### 📄 USUARIOS
+### USUARIOS
 
 | Campo | Uso |
 |-----|-----|
@@ -125,7 +125,7 @@ El proyecto utiliza **Google Sheets** como almacenamiento principal.
 
 ---
 
-### 📄 REGISTROS_BAJA
+### REGISTROS_BAJA
 
 | Campo | Uso |
 |-----|-----|
@@ -139,7 +139,7 @@ El proyecto utiliza **Google Sheets** como almacenamiento principal.
 
 ---
 
-### 📄 VALIDACIONES_INDIVIDUALES
+### VALIDACIONES_INDIVIDUALES
 
 | Campo | Uso |
 |-----|-----|
@@ -159,7 +159,7 @@ El proyecto utiliza **Google Sheets** como almacenamiento principal.
 
 ---
 
-## 🔄 Ciclo de Vida de una Solicitud
+## Ciclo de Vida de una Solicitud
 
 1. Creación de la solicitud  
 2. Envío de correos a los validadores  
@@ -169,7 +169,7 @@ El proyecto utiliza **Google Sheets** como almacenamiento principal.
 
 ---
 
-## 👤 Roles y Permisos
+## Roles y Permisos
 
 | Rol | Permisos |
 |----|----------|
@@ -180,7 +180,7 @@ El proyecto utiliza **Google Sheets** como almacenamiento principal.
 
 ---
 
-## 📁 Estructura de Archivos
+## Estructura de Archivos
 
 ```text
 Dadas-de-baja/
