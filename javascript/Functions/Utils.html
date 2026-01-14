@@ -7,7 +7,7 @@
             const alertDiv = document.createElement('div');
             alertDiv.className = `alert alert-${type}`;
             
-            const icon = type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️';
+            const icon = type === 'success' ? '<i class="fa-regular fa-circle-check"></i>' : type === 'error' ? '<i class="fa-solid fa-ban"></i>' : '<i class="fa-solid fa-circle-info"></i>';
             alertDiv.innerHTML = `
                 <span class="alert-icon">${icon}</span>
                 <span class="alert-message">${message}</span>

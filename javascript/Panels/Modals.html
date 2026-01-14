@@ -15,11 +15,11 @@
             inputElement.value = '';
             
             if (title.includes('Validar')) {
-                iconElement.textContent = '✅';
+                iconElement.textContent = '';
             } else if (title.includes('Rechazar')) {
-                iconElement.textContent = '❌';
+                iconElement.textContent = '';
             } else {
-                iconElement.textContent = '❓';
+                iconElement.textContent = '';
             }
             
             customModalCallback = callback;
@@ -149,7 +149,7 @@ function displayStaticRequestDetails(data) {
                     <p><strong>Precio Real:</strong> $${parseFloat(validation.precioReal).toLocaleString('es-CO')}</p>
                     <p><strong>Cantidad Real:</strong> ${parseFloat(validation.cantidadReal).toLocaleString('es-CO')}</p>
                     <p><strong>Proveedor:</strong> ${validation.proveedor} </p>
-                    <p><strong>No. del Ticket Control Bascula:</strong> ${validation.ticketBascula || 'N/A'} </p>
+                    <p><strong>No. del Ticket Control Bascula:</strong> ${validation.ticketBascula || 'N/A'}</p>
                     ${validation.observaciones ? `<p><strong>Observaciones:</strong> ${validation.observaciones}</p>` : ''}
                     <p><strong>Validado por:</strong> ${validation.validadoPor || 'N/A'}</p>
                 </div>
@@ -197,7 +197,7 @@ function displayTeamsAndValidatorsMinimalist(data, teamsConfig) {
     // Título de la sección
     const titleDiv = document.createElement('div');
     titleDiv.style.cssText = 'font-size: 16px; font-weight: 600; color: #2c3e50; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid #f0f0f0;';
-    titleDiv.innerHTML = '📋 <strong>ESTADO DE VALIDACIÓN POR EQUIPO</strong>';
+    titleDiv.innerHTML = '<i class="fa-solid fa-clipboard"></i> <strong>ESTADO DE VALIDACIÓN POR EQUIPO</strong>';
     validationsList.appendChild(titleDiv);
     
     // Variables para contar
@@ -271,7 +271,7 @@ function displayTeamsAndValidatorsMinimalist(data, teamsConfig) {
                 teamContent += `
                     <div class="team-pending-members" style="margin-top: 10px; padding: 10px; background: #fff8e1; border-radius: 6px; border-left: 4px solid #FF9800;">
                         <div class="pending-members-title" style="color: #e65100; font-weight: 600; margin-bottom: 8px; font-size: 13px;">
-                            ⏳ <strong>FALTAN POR VALIDAR:</strong> ${miembrosPendientes.length} miembro(s)
+                            <i class="fa-solid fa-clock"></i> <strong>FALTAN POR VALIDAR:</strong> ${miembrosPendientes.length} miembro(s)
                         </div>
                         <div style="display: flex; flex-wrap: wrap; gap: 5px;">
                             ${miembrosPendientes.map(email => `

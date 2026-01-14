@@ -7,11 +7,11 @@
 }
 
 :root {
-    /* Colores corporativos comarrico */
-    --primary-color: #00654d;
-    --primary-dark: #007357;
-    --primary-light: #b2021c;
-    --secondary-color: #b2021c;
+    /* Colores corporativos Doria */
+    --primary-color: #1e40af;
+    --primary-dark: #1e3a8a;
+    --primary-light: #3b82f6;
+    --secondary-color: #64748b;
     --accent-color: #f59e0b;
     --success-color: #059669;
     --warning-color: #d97706;
@@ -61,7 +61,7 @@
 /* Tipografía corporativa */
 body {
     font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: linear-gradient(135deg, #007357 0%, #007357 50%, #ff002c 140%);
+    background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 50%, #F54927 140%);
     min-height: 100vh;
     color: var(--text-primary);
     line-height: 1.6;
@@ -141,11 +141,11 @@ body {
 }
 
 .logo-img {
-    height: 90px;
+    height: 140px;
 }
 
 .logo-sidebar {
-    height: 90px;
+    height: 145px;
 }
 
 .logo-contain-sidebar {
@@ -233,8 +233,7 @@ body {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: var(--spacing-sm);
-    padding: 12px 24px;
+    padding: 10px 16px;
     border: none;
     border-radius: var(--radius-md);
     font-size: 14px;
@@ -263,7 +262,7 @@ body {
 }
 
 .btn-primary {
-    background: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
     color: var(--text-white);
     box-shadow: var(--shadow-md);
     width: 100%;
@@ -353,7 +352,7 @@ body {
 /* Sidebar corporativo */
 .sidebar {
     width: 280px;
-    background: linear-gradient(180deg, var(--background-dark), #004333);
+    background: linear-gradient(180deg, var(--background-dark), #1e293b);
     color: var(--text-white);
     display: flex;
     flex-direction: column;
@@ -645,7 +644,7 @@ body {
 }
 
 .panel-header {
-    background: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
     color: var(--text-white);
     padding: var(--spacing-xl) var(--spacing-2xl);
     display: flex;
@@ -1182,6 +1181,7 @@ body {
     border-radius: 0 0 var(--radius-xl) var(--radius-xl);
 }
 
+/* Responsive design mejorado */
 @media (max-width: 768px) {
     .sidebar {
         width: 100%;
@@ -1493,5 +1493,92 @@ body {
 #nivelesContainer {
     max-height: 300px;
     overflow-y: auto;
+}
+
+/* Estilos para validadores - Versión minimalista mejorada */
+.team-item {
+    margin-bottom: 12px;
+    padding: 15px;
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.team-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.team-name {
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 14px;
+}
+
+.team-status {
+    font-size: 11px;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.team-validated {
+    background: #4CAF50;
+    color: white;
+}
+
+.team-pending {
+    background: #FF9800;
+    color: white;
+}
+
+.team-validated-by {
+    font-size: 13px;
+    color: #2e7d32;
+    margin: 5px 0;
+    padding: 6px 10px;
+    background: #f1f8e9;
+    border-radius: 4px;
+    border-left: 3px solid #4CAF50;
+}
+
+.team-pending-members {
+    margin-top: 8px;
+    padding: 8px 10px;
+    background: #fff8e1;
+    border-radius: 4px;
+    border-left: 3px solid #FF9800;
+}
+
+.pending-members-title {
+    font-size: 12px;
+    color: #e65100;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.team-member {
+    display: inline-block;
+    padding: 3px 10px;
+    margin: 3px 5px 3px 0;
+    background: #f5f5f5;
+    border-radius: 14px;
+    font-size: 11px;
+    color: #666;
+    border: 1px solid #eee;
+}
+
+.team-observations {
+    margin-top: 8px;
+    font-size: 12px;
+    color: #555;
+    padding: 8px 10px;
+    background: #f0f8ff;
+    border-radius: 4px;
+    border-left: 3px solid #2196F3;
 }
 </style>

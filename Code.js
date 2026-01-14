@@ -1,76 +1,1596 @@
 // ═══════════════════════════════════════════════════════════════════════════════
-// SISTEMA DE BAJA DE ELEMENTOS - COMARRICO
+// SISTEMA DE BAJA DE ELEMENTOS - DORIA
 // ═══════════════════════════════════════════════════════════════════════════════
+// ------------------------------------------------------------------------
 // ═══════════════════════════════════════════════════════════════════════════════
 // CONFIGURACIÓN GLOBAL
 // ═══════════════════════════════════════════════════════════════════════════════
 
-const SHEET_ID = '1dIQB9lAu6iZByoYGI-WHDSE0dgvu0gxyrLv8Uvu-1r4';
+const SHEET_ID = '1MIxn38d-lGu4IXS7PpkcyYNmaDxcZ1wLqRSkGMzdbGQ';
 const USUARIOS_SHEET = 'USUARIOS';
 const REGISTROS_SHEET = 'REGISTROS_BAJA';
 const VALIDACIONES_SHEET = 'VALIDACIONES_INDIVIDUALES';
-const VALORES = 'VALORES'
+const VALORES =  'VALORES'
 
-const CORREOS_ACTIVOS_FIJOS = 'pragestionhumana@pastascomarrico.com';
-const CORREOS_FINALIZACION = 'pragestionhumana@pastascomarrico.com';
-const CORREOS_COPIA = 'juliusbloque23@gmail.com';
+const CORREOS_ACTIVOS_FIJOS = 'aylopez@alimentosdoria.com,jamartinez@alimentosdoria.com,jjrojas@alimentosdoria.com,mpbeltran@alimentosdoria.com';
+const CORREOS_FINALIZACION = 'vvigoya@alimentosdoria.com,aelara@alimentosdoria.com,carango@alimentosdoria.com';
+const CORREOS_COPIA = 'mpbeltran@alimentosdoria.com';
 
 const EMAIL_ROUTING_CONFIG = {
+// ═══════════════════════════════════════════════════════════════════════════════
+// ALMACEN GENERAL (LOGISTICA)
+// ═══════════════════════════════════════════════════════════════════════════════
   "ALMACÉN GENERAL": {
     "MOLDES E INSERTOS": {
       "MENOR_5M": {
-        "Aprobador 1": ["pragestionhumana@pastascomarrico.com", "pragestionhumana@pastascomarrico.com"],
-        "Aprobador 2": ["pragestionhumana@pastascomarrico.com", "pragestionhumana@pastascomarrico.com"],
-        "Aprobador 3": ["pragestionhumana@pastascomarrico.com", "pragestionhumana@pastascomarrico.com"],
-        "Aprobador 4": ["pragestionhumana@pastascomarrico.com", "pragestionhumana@pastascomarrico.com"]
+        "Aprobador 1": [
+          "rjcastro@alimentosdoria.com", 
+          "caamaya@alimentosdoria.com"
+          ],
+        "Aprobador 2": [
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com", 
+          "candrade@alimentosdoria.com"
+          ]
       },
       "MAYOR_5M": {
-        "Aprobador 1": ["pragestionhumana@pastascomarrico.com", "pragestionhumana@pastascomarrico.com"],
-        "Aprobador 2": ["pragestionhumana@pastascomarrico.com", "pragestionhumana@pastascomarrico.com"],
-        "Aprobador 3": ["pragestionhumana@pastascomarrico.com", "pragestionhumana@pastascomarrico.com"],
-        "Aprobador 4": ["pragestionhumana@pastascomarrico.com", "pragestionhumana@pastascomarrico.com"]
+        "Aprobador 1": [
+          "czuniga@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "mamanotas@alimentosdoria.com"
+          ]
       }
-    },
+    }, // -----------------------------------------------------------------------------------------------------
     "MAQUINARIA": {
       "MENOR_5M": {
-        "Aprobador 1": ["pragestionhumana@pastascomarrico.com", "pragestionhumana@pastascomarrico.com"],
-        "Aprobador 2": ["pragestionhumana@pastascomarrico.com", "pragestionhumana@pastascomarrico.com"],
-        "Aprobador 3": ["pragestionhumana@pastascomarrico.com", "pragestionhumana@pastascomarrico.com"],
-        "Aprobador 4": ["pragestionhumana@pastascomarrico.com", "pragestionhumana@pastascomarrico.com"]
+        "Aprobador 1": [
+          "rjcastro@alimentosdoria.com", 
+          "caamaya@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "aylopez@alimentosdoria.com", 
+          "jamartinez@alimentosdoria.com",
+          "jjrojas@alimentosdoria.com"
+          ]
       },
       "MAYOR_5M": {
-        "Aprobador 1": ["pragestionhumana@pastascomarrico.com", "pragestionhumana@pastascomarrico.com"],
-        "Aprobador 2": ["pragestionhumana@pastascomarrico.com", "pragestionhumana@pastascomarrico.com"],
-        "Aprobador 3": ["pragestionhumana@pastascomarrico.com", "pragestionhumana@pastascomarrico.com"],
-        "Aprobador 4": ["pragestionhumana@pastascomarrico.com", "pragestionhumana@pastascomarrico.com"]
+        "Aprobador 1": [
+          "czuniga@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "kpeinadoro@alimentosdoria.com"
+          ],
+        "Aprobador 4": [
+          "mamanotas@alimentosdoria.com"
+          ]
       }
-    },
+    }, // -----------------------------------------------------------------------------------------------------
     "ESTIBAS DE MADERA Y/O GUACALES": {
       "MENOR_5M": {
-        "Aprobador 1": ["pragestionhumana@pastascomarrico.com", "correo_aprobador1@comarrico.com"],
-        "Aprobador 2": ["soptransformaciondigital@pastascomarrico.com", "correo_aprobador2@comarrico.com"],
-        "Aprobador 3": ["practransformdgt3@alimentosdoria.com", "correo_aprobador3@comarrico.com"],
-        "Aprobador 4": ["user@gmail.com", "correo_aprobador4@comarrico.com"]
+        "Aprobador 1": [
+          "rjcastro@alimentosdoria.com", 
+          "caamaya@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ]
       },
       "MAYOR_5M": {
-        "Aprobador 1": ["pragestionhumana@pastascomarrico.com", "pragestionhumana@pastascomarrico.com"],
-        "Aprobador 2": ["pragestionhumana@pastascomarrico.com", "pragestionhumana@pastascomarrico.com"],
-        "Aprobador 3": ["pragestionhumana@pastascomarrico.com", "pragestionhumana@pastascomarrico.com"],
-        "Aprobador 4": ["pragestionhumana@pastascomarrico.com", "pragestionhumana@pastascomarrico.com"]
+        "Aprobador 1": [
+          "czuniga@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "mamanotas@alimentosdoria.com"
+          ]
       }
-    },
+    }, // -----------------------------------------------------------------------------------------------------
     "INSUMO MATERIA PRIMA": {
       "MENOR_5M": {
-        "Aprobador 1": ["pragestionhumana@pastascomarrico.com", "pragestionhumana@pastascomarrico.com"],
-        "Aprobador 2": ["pragestionhumana@pastascomarrico.com", "pragestionhumana@pastascomarrico.com"],
-        "Aprobador 3": ["pragestionhumana@pastascomarrico.com", "pragestionhumana@pastascomarrico.com"],
-        "Aprobador 4": ["pragestionhumana@pastascomarrico.com", "pragestionhumana@pastascomarrico.com"]
+        "Aprobador 1": [
+          "rjcastro@alimentosdoria.com", 
+          "caamaya@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ]
       },
       "MAYOR_5M": {
-        "Aprobador 1": ["pragestionhumana@pastascomarrico.com", "pragestionhumana@pastascomarrico.com"],
-        "Aprobador 2": ["pragestionhumana@pastascomarrico.com", "pragestionhumana@pastascomarrico.com"],
-        "Aprobador 3": ["pragestionhumana@pastascomarrico.com", "pragestionhumana@pastascomarrico.com"],
-        "Aprobador 4": ["pragestionhumana@pastascomarrico.com", "pragestionhumana@pastascomarrico.com"]
+        "Aprobador 1": [
+          "czuniga@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }, // -----------------------------------------------------------------------------------------------------
+    "INSUMOS MATERIALES DE EMPAQUE": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "rjcastro@alimentosdoria.com", 
+          "caamaya@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "czuniga@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }, // -----------------------------------------------------------------------------------------------------
+        "MOBILIARIOS": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "rjcastro@alimentosdoria.com", 
+          "caamaya@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+         "Aprobador 3": [
+          "aylopez@alimentosdoria.com",
+          "jamartinez@alimentosdoria.com ",
+          " jjrojas@alimentosdoria.com"
+         ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "czuniga@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "kpeinadoro@alimentosdoria.com"
+          ],
+        "Aprobador 4": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }
+  }, 
+// ═══════════════════════════════════════════════════════════════════════════════
+// ALMACEN MATERIAS PRIMAS (LOGISTICA)
+// ═══════════════════════════════════════════════════════════════════════════════
+    "ALMACÉN MATERIAS PRIMAS": {
+    "MOLDES E INSERTOS": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "rjcastro@alimentosdoria.com", 
+          "caamaya@alimentosdoria.com"
+          ],
+        "Aprobador 2": [
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com", 
+          "candrade@alimentosdoria.com"
+          ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "czuniga@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }, // -----------------------------------------------------------------------------------------------------
+    "MAQUINARIA": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "rjcastro@alimentosdoria.com", 
+          "caamaya@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "aylopez@alimentosdoria.com", 
+          "jamartinez@alimentosdoria.com",
+          "jjrojas@alimentosdoria.com"
+          ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "czuniga@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "kpeinadoro@alimentosdoria.com"
+          ],
+        "Aprobador 4": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }, // -----------------------------------------------------------------------------------------------------
+    "ESTIBAS DE MADERA Y/O GUACALES": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "rjcastro@alimentosdoria.com", 
+          "caamaya@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "czuniga@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }, // -----------------------------------------------------------------------------------------------------
+    "INSUMO MATERIA PRIMA": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "rjcastro@alimentosdoria.com", 
+          "caamaya@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "czuniga@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }, // -----------------------------------------------------------------------------------------------------
+    "INSUMOS MATERIALES DE EMPAQUE": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "rjcastro@alimentosdoria.com", 
+          "caamaya@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "czuniga@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }, // -----------------------------------------------------------------------------------------------------
+        "MOBILIARIOS": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "rjcastro@alimentosdoria.com", 
+          "caamaya@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+         "Aprobador 3": [
+          "aylopez@alimentosdoria.com",
+          "jamartinez@alimentosdoria.com ",
+          " jjrojas@alimentosdoria.com"
+         ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "czuniga@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "kpeinadoro@alimentosdoria.com"
+          ],
+        "Aprobador 4": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }
+  },
+// ═══════════════════════════════════════════════════════════════════════════════
+// CEDI (LOGISTICA)
+// ═══════════════════════════════════════════════════════════════════════════════
+    "CEDI": {
+    "MOLDES E INSERTOS": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "rjcastro@alimentosdoria.com", 
+          "caamaya@alimentosdoria.com"
+          ],
+        "Aprobador 2": [
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com", 
+          "candrade@alimentosdoria.com"
+          ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "czuniga@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }, // -----------------------------------------------------------------------------------------------------
+    "MAQUINARIA": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "rjcastro@alimentosdoria.com", 
+          "caamaya@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "aylopez@alimentosdoria.com", 
+          "jamartinez@alimentosdoria.com",
+          "jjrojas@alimentosdoria.com"
+          ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "czuniga@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "kpeinadoro@alimentosdoria.com"
+          ],
+        "Aprobador 4": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }, // -----------------------------------------------------------------------------------------------------
+    "ESTIBAS DE MADERA Y/O GUACALES": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "rjcastro@alimentosdoria.com", 
+          "caamaya@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "czuniga@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }, // -----------------------------------------------------------------------------------------------------
+    "INSUMO MATERIA PRIMA": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "rjcastro@alimentosdoria.com", 
+          "caamaya@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "czuniga@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }, // -----------------------------------------------------------------------------------------------------
+    "INSUMOS MATERIALES DE EMPAQUE": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "rjcastro@alimentosdoria.com", 
+          "caamaya@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "czuniga@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }, // -----------------------------------------------------------------------------------------------------
+        "MOBILIARIOS": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "rjcastro@alimentosdoria.com", 
+          "caamaya@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+         "Aprobador 3": [
+          "aylopez@alimentosdoria.com",
+          "jamartinez@alimentosdoria.com ",
+          " jjrojas@alimentosdoria.com"
+         ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "czuniga@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "kpeinadoro@alimentosdoria.com"
+          ],
+        "Aprobador 4": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }
+  },
+// ═══════════════════════════════════════════════════════════════════════════════
+// MOLINO (MANUFACTURA)
+// ═══════════════════════════════════════════════════════════════════════════════
+    "MOLINO": {
+    "MOLDES E INSERTOS": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "sgarzon@alimentosdoria.com", 
+          "jadiaz@alimentosdoria.com"
+          ],
+        "Aprobador 2": [
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com", 
+          "candrade@alimentosdoria.com"
+          ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "fazapata@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }, // -----------------------------------------------------------------------------------------------------
+    "MAQUINARIA": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "sgarzon@alimentosdoria.com", 
+          "jadiaz@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "aylopez@alimentosdoria.com", 
+          "jamartinez@alimentosdoria.com",
+          "jjrojas@alimentosdoria.com"
+          ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "fazapata@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "kpeinadoro@alimentosdoria.com"
+          ],
+        "Aprobador 4": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }, // -----------------------------------------------------------------------------------------------------
+    "ESTIBAS DE MADERA Y/O GUACALES": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "sgarzon@alimentosdoria.com", 
+          "jadiaz@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "fazapata@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }, // -----------------------------------------------------------------------------------------------------
+    "INSUMO MATERIA PRIMA": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "sgarzon@alimentosdoria.com", 
+          "jadiaz@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "fazapata@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }, // -----------------------------------------------------------------------------------------------------
+    "INSUMOS MATERIALES DE EMPAQUE": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "sgarzon@alimentosdoria.com", 
+          "jadiaz@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "fazapata@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }, // -----------------------------------------------------------------------------------------------------
+        "MOBILIARIOS": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "sgarzon@alimentosdoria.com", 
+          "jadiaz@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+         "Aprobador 3": [
+          "aylopez@alimentosdoria.com",
+          "jamartinez@alimentosdoria.com ",
+          " jjrojas@alimentosdoria.com"
+         ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "fazapata@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "kpeinadoro@alimentosdoria.com"
+          ],
+        "Aprobador 4": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }
+  },
+// ═══════════════════════════════════════════════════════════════════════════════
+// EMPAQUE (MANUFACTURA)
+// ═══════════════════════════════════════════════════════════════════════════════
+    "EMPAQUE": {
+    "MOLDES E INSERTOS": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "sgarzon@alimentosdoria.com", 
+          "jadiaz@alimentosdoria.com"
+          ],
+        "Aprobador 2": [
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com", 
+          "candrade@alimentosdoria.com"
+          ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "fazapata@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }, // -----------------------------------------------------------------------------------------------------
+    "MAQUINARIA": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "sgarzon@alimentosdoria.com", 
+          "jadiaz@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "aylopez@alimentosdoria.com", 
+          "jamartinez@alimentosdoria.com",
+          "jjrojas@alimentosdoria.com"
+          ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "fazapata@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "kpeinadoro@alimentosdoria.com"
+          ],
+        "Aprobador 4": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }, // -----------------------------------------------------------------------------------------------------
+    "ESTIBAS DE MADERA Y/O GUACALES": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "sgarzon@alimentosdoria.com", 
+          "jadiaz@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "fazapata@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }, // -----------------------------------------------------------------------------------------------------
+    "INSUMO MATERIA PRIMA": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "sgarzon@alimentosdoria.com", 
+          "jadiaz@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "fazapata@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }, // -----------------------------------------------------------------------------------------------------
+    "INSUMOS MATERIALES DE EMPAQUE": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "sgarzon@alimentosdoria.com", 
+          "jadiaz@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "fazapata@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }, // -----------------------------------------------------------------------------------------------------
+        "MOBILIARIOS": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "sgarzon@alimentosdoria.com", 
+          "jadiaz@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+         "Aprobador 3": [
+          "aylopez@alimentosdoria.com",
+          "jamartinez@alimentosdoria.com ",
+          "jjrojas@alimentosdoria.com"
+         ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "fazapata@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "kpeinadoro@alimentosdoria.com"
+          ],
+        "Aprobador 4": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }
+  },
+// ═══════════════════════════════════════════════════════════════════════════════
+// PASTIFICIO (MANUFACTURA)
+// ═══════════════════════════════════════════════════════════════════════════════
+    "PASTIFICIO": {
+    "MOLDES E INSERTOS": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "sgarzon@alimentosdoria.com", 
+          "jadiaz@alimentosdoria.com"
+          ],
+        "Aprobador 2": [
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com", 
+          "candrade@alimentosdoria.com"
+          ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "fazapata@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }, // -----------------------------------------------------------------------------------------------------
+    "MAQUINARIA": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "sgarzon@alimentosdoria.com", 
+          "jadiaz@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "aylopez@alimentosdoria.com", 
+          "jamartinez@alimentosdoria.com",
+          "jjrojas@alimentosdoria.com"
+          ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "fazapata@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "kpeinadoro@alimentosdoria.com"
+          ],
+        "Aprobador 4": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }, // -----------------------------------------------------------------------------------------------------
+    "ESTIBAS DE MADERA Y/O GUACALES": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "sgarzon@alimentosdoria.com", 
+          "jadiaz@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "fazapata@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }, // -----------------------------------------------------------------------------------------------------
+    "INSUMO MATERIA PRIMA": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "sgarzon@alimentosdoria.com", 
+          "jadiaz@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "fazapata@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }, // -----------------------------------------------------------------------------------------------------
+    "INSUMOS MATERIALES DE EMPAQUE": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "sgarzon@alimentosdoria.com", 
+          "jadiaz@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "fazapata@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }, // -----------------------------------------------------------------------------------------------------
+        "MOBILIARIOS": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "sgarzon@alimentosdoria.com", 
+          "jadiaz@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+         "Aprobador 3": [
+          "aylopez@alimentosdoria.com",
+          "jamartinez@alimentosdoria.com ",
+          " jjrojas@alimentosdoria.com"
+         ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "fazapata@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "kpeinadoro@alimentosdoria.com"
+          ],
+        "Aprobador 4": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }
+  },
+// ═══════════════════════════════════════════════════════════════════════════════
+// MANTENIMIENTO
+// ═══════════════════════════════════════════════════════════════════════════════
+    "MANTENIMIENTO": {
+    "MOLDES E INSERTOS": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "aylopez@alimentosdoria.com", 
+          "jamartinez@alimentosdoria.com",
+          "jjrojas@alimentosdoria.com"
+          ],
+        "Aprobador 2": [
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com", 
+          "candrade@alimentosdoria.com"
+          ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "kpeinadoro@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }, // -----------------------------------------------------------------------------------------------------
+    "MAQUINARIA": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "aylopez@alimentosdoria.com", 
+          "jamartinez@alimentosdoria.com",
+          "jjrojas@alimentosdoria.com"
+          ],
+        "Aprobador 2": [
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com", 
+          "candrade@alimentosdoria.com"
+          ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "kpeinadoro@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }, // -----------------------------------------------------------------------------------------------------
+    "ESTIBAS DE MADERA Y/O GUACALES": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "aylopez@alimentosdoria.com", 
+          "jamartinez@alimentosdoria.com",
+          "jjrojas@alimentosdoria.com"
+          ],
+        "Aprobador 2": [
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com", 
+          "candrade@alimentosdoria.com"
+          ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "kpeinadoro@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }, // -----------------------------------------------------------------------------------------------------
+    "INSUMO MATERIA PRIMA": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "aylopez@alimentosdoria.com", 
+          "jamartinez@alimentosdoria.com",
+          "jjrojas@alimentosdoria.com"
+          ],
+        "Aprobador 2": [
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com", 
+          "candrade@alimentosdoria.com"
+          ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "kpeinadoro@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }, // -----------------------------------------------------------------------------------------------------
+    "INSUMOS MATERIALES DE EMPAQUE": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "aylopez@alimentosdoria.com", 
+          "jamartinez@alimentosdoria.com",
+          "jjrojas@alimentosdoria.com"
+          ],
+        "Aprobador 2": [
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com", 
+          "candrade@alimentosdoria.com"
+          ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "kpeinadoro@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }, // -----------------------------------------------------------------------------------------------------
+        "MOBILIARIOS": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "aylopez@alimentosdoria.com", 
+          "jamartinez@alimentosdoria.com",
+          "jjrojas@alimentosdoria.com"
+          ],
+        "Aprobador 2": [
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com", 
+          "candrade@alimentosdoria.com"
+          ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "kpeinadoro@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }
+  },
+// ═══════════════════════════════════════════════════════════════════════════════
+// CALIDAD
+// ═══════════════════════════════════════════════════════════════════════════════
+    "CALIDAD": {
+    "MOLDES E INSERTOS": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "mjbuitrago@alimentosdoria.com"
+          ],
+        "Aprobador 2": [
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com", 
+          "candrade@alimentosdoria.com"
+          ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "ymposada@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }, // -----------------------------------------------------------------------------------------------------
+    "MAQUINARIA": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "mjbuitrago@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+         "Aprobador 3": [
+          "aylopez@alimentosdoria.com",
+          "jamartinez@alimentosdoria.com ",
+          "jjrojas@alimentosdoria.com"
+         ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "ymposada@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "kpeinadoro@alimentosdoria.com"
+          ],
+        "Aprobador 4": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }, // -----------------------------------------------------------------------------------------------------
+    "ESTIBAS DE MADERA Y/O GUACALES": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          ""
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "czuniga@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }, // -----------------------------------------------------------------------------------------------------
+    "INSUMO MATERIA PRIMA": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "mjbuitrago@alimentosdoria.com"
+          ],
+        "Aprobador 2": [
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com", 
+          "candrade@alimentosdoria.com"
+          ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "ymposada@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }, // -----------------------------------------------------------------------------------------------------
+    "INSUMOS MATERIALES DE EMPAQUE": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "mjbuitrago@alimentosdoria.com"
+          ],
+        "Aprobador 2": [
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com", 
+          "candrade@alimentosdoria.com"
+          ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "ymposada@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }, // -----------------------------------------------------------------------------------------------------
+        "MOBILIARIOS": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "mjbuitrago@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+         "Aprobador 3": [
+          "aylopez@alimentosdoria.com",
+          "jamartinez@alimentosdoria.com ",
+          "jjrojas@alimentosdoria.com"
+         ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "ymposada@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "kpeinadoro@alimentosdoria.com"
+          ],
+        "Aprobador 4": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }
+  },
+// ═══════════════════════════════════════════════════════════════════════════════
+// S.I
+// ═══════════════════════════════════════════════════════════════════════════════
+      "SISTEMA DE INFORMACIÓN": {
+    "MOLDES E INSERTOS": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "sgarzon@alimentosdoria.com", 
+          "jadiaz@alimentosdoria.com"
+          ],
+        "Aprobador 2": [
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com", 
+          "candrade@alimentosdoria.com"
+          ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "fazapata@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }, // -----------------------------------------------------------------------------------------------------
+    "MAQUINARIA": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "sgarzon@alimentosdoria.com", 
+          "jadiaz@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "aylopez@alimentosdoria.com", 
+          "jamartinez@alimentosdoria.com",
+          "jjrojas@alimentosdoria.com"
+          ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "fazapata@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "kpeinadoro@alimentosdoria.com"
+          ],
+        "Aprobador 4": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }, // -----------------------------------------------------------------------------------------------------
+    "ESTIBAS DE MADERA Y/O GUACALES": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "sgarzon@alimentosdoria.com", 
+          "jadiaz@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "fazapata@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }, // -----------------------------------------------------------------------------------------------------
+    "INSUMO MATERIA PRIMA": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "sgarzon@alimentosdoria.com", 
+          "jadiaz@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "fazapata@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }, // -----------------------------------------------------------------------------------------------------
+    "INSUMOS MATERIALES DE EMPAQUE": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "sgarzon@alimentosdoria.com", 
+          "jadiaz@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "fazapata@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "mamanotas@alimentosdoria.com"
+          ]
+      }
+    }, // -----------------------------------------------------------------------------------------------------
+        "MOBILIARIOS": {
+      "MENOR_5M": {
+        "Aprobador 1": [
+          "sgarzon@alimentosdoria.com", 
+          "jadiaz@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+         "Aprobador 3": [
+          "aylopez@alimentosdoria.com",
+          "jamartinez@alimentosdoria.com ",
+          " jjrojas@alimentosdoria.com"
+         ]
+      },
+      "MAYOR_5M": {
+        "Aprobador 1": [
+          "fazapata@alimentosdoria.com"
+          ],
+        "Aprobador 2": [ 
+          "ajramirez@alimentosdoria.com",
+          "macastro@alimentosdoria.com",
+          "candrade@alimentosdoria.com"
+          ],
+        "Aprobador 3": [
+          "kpeinadoro@alimentosdoria.com"
+          ],
+        "Aprobador 4": [
+          "mamanotas@alimentosdoria.com"
+          ]
       }
     }
   }
@@ -81,8 +1601,8 @@ const EMAIL_ROUTING_CONFIG = {
 // ═══════════════════════════════════════════════════════════════════════════════
 
 function doGet() {
-  const title = 'DADAS DE BAJA - COMARRICO';
-  const faviconUrl = 'https://comarrico.com/wp-content/uploads/2022/02/cropped-Logo-menu-comarrico-150x150.png';
+  const title = 'DADAS DE BAJA - DORIA';
+  const faviconUrl = 'https://alimentosdoria.com/wp-content/uploads/2023/01/logo-doria.png';
   
   return HtmlService.createTemplateFromFile('html/index')
     .evaluate()
@@ -101,10 +1621,37 @@ function include(filename) {
 
 function getSpreadsheet() {
   try {
-    return SpreadsheetApp.openById(SHEET_ID);
+    const ss = SpreadsheetApp.openById(SHEET_ID);
+    
+    // Verificar que podemos acceder a la hoja
+    if (!ss) {
+      throw new Error('No se pudo acceder a la hoja de cálculo. Verifica los permisos.');
+    }
+    
+    // Intentar leer algo para verificar permisos
+    ss.getSheets();
+    
+    return ss;
   } catch (error) {
-    console.error('Error al abrir la hoja de cálculo:', error);
-    throw new Error('No se pudo acceder a la hoja de cálculo');
+    console.error('❌ Error detallado al abrir la hoja de cálculo:', error.toString());
+    
+    // Enviar alerta por correo
+    try {
+      MailApp.sendEmail({
+        to: Session.getEffectiveUser().getEmail(),
+        subject: '❌ ERROR DE PERMISOS - Sistema de Baja DORIA',
+        body: `Error al acceder a la hoja de cálculo:\n\n` +
+              `ID: ${SHEET_ID}\n` +
+              `Usuario: ${Session.getEffectiveUser().getEmail()}\n` +
+              `Error: ${error.toString()}\n\n` +
+              `Por favor, verifica que la hoja esté compartida correctamente.`
+      });
+    } catch (mailError) {
+      console.error('No se pudo enviar correo de alerta:', mailError);
+    }
+    
+    throw new Error('Error de permisos: No se puede acceder a la hoja de cálculo. ' + 
+                    'Contacta al administrador para verificar los permisos de acceso.');
   }
 }
 
@@ -1169,7 +2716,7 @@ function enviarNotificacionEquipoValidado(requestId, correoValidador, nombreVali
   
   <!-- Botón de Acción -->
   <div style="text-align: center; margin-top: 25px;">
-    <a href="https://script.google.com/a/macros/pastascomarrico.com/s/AKfycbylr5F3mAB9vDkgbS3ZWPKN1JNOGZEJs5JISeh64La-ABR1eui6ISc4QFOYp7LCV6_Q3g/exec" 
+    <a href="https://script.google.com/macros/s/AKfycbylr5F3mAB9vDkgbS3ZWPKN1JNOGZEJs5JISeh64La-ABR1eui6ISc4QFOYp7LCV6_Q3g/exec" 
        style="background: #2e7d32; color: white; padding: 12px 25px; text-decoration: none; 
               border-radius: 5px; font-weight: bold; display: inline-block;">
        🔍 Ver Detalles Completos
@@ -1231,7 +2778,7 @@ function enviarCorreosValidacion(requestId, requestData) {
 <div style="font-family: Arial, sans-serif; background-color: #f9fafc; padding: 20px; color: #333;">
   <div style="max-width: 650px; margin: auto; background: #ffffff; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); padding: 25px;">
     
-    <h2 style="margin:0; font-size:20px; color:#004080;">🏢 VALIDACIÓN POR EQUIPOS - COMARRICO</h2>
+    <h2 style="margin:0; font-size:20px; color:#004080;">🏢 VALIDACIÓN POR EQUIPOS - DORIA</h2>
     <hr style="border:none; border-top:2px solid #004080; margin:15px 0;">
     
     <p style="font-size:15px; color:#444;">Estimados miembros de los equipos aprobadores,</p>
@@ -1257,7 +2804,7 @@ function enviarCorreosValidacion(requestId, requestData) {
     </div>
 
     <div style="text-align:center; margin:30px 0;">
-      <a href="https://tu-sistema.com/validaciones" 
+      <a href="https://script.google.com/macros/s/AKfycbylr5F3mAB9vDkgbS3ZWPKN1JNOGZEJs5JISeh64La-ABR1eui6ISc4QFOYp7LCV6_Q3g/exec" 
          style="background:#004080; color:#fff; padding:12px 25px; text-decoration:none; border-radius:6px; font-weight:bold; font-size:14px; display:inline-block;">
          🔎 Revisar Solicitud
       </a>
@@ -1267,7 +2814,7 @@ function enviarCorreosValidacion(requestId, requestData) {
 
     <hr style="border:none; border-top:1px solid #ddd; margin:20px 0;">
     <p style="font-size:12px; color:#888; text-align:center;">
-      Sistema de Baja de Elementos - COMARRICO<br>
+      Sistema de Baja de Elementos - DORIA<br>
       Fecha: ${new Date().toLocaleString('es-ES')}
     </p>
   </div>
@@ -1292,7 +2839,7 @@ const body = `
   <div style="max-width: 650px; margin: auto; background: #ffffff; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); padding: 25px;">
     
     <!-- Encabezado -->
-    <h2 style="margin:0; font-size:20px; color:#004080;">🏢 SISTEMA DE BAJA DE ELEMENTOS - COMARRICO</h2>
+    <h2 style="margin:0; font-size:20px; color:#004080;">🏢 SISTEMA DE BAJA DE ELEMENTOS - DORIA</h2>
     <hr style="border:none; border-top:2px solid #004080; margin:15px 0;">
     
     <!-- Introducción -->
@@ -1321,7 +2868,7 @@ const body = `
     <p style="font-size:14px; color:#555;">Gracias por su gestión.<br>Saludos cordiales,</p>
     <hr style="border:none; border-top:1px solid #ddd; margin:20px 0;">
     <p style="font-size:12px; color:#888; text-align:center;">
-      Sistema de Baja de Elementos - COMARRICO<br>
+      Sistema de Baja de Elementos - DORIA<br>
       Fecha: ${new Date().toLocaleString('es-ES')}
     </p>
   </div>
@@ -1381,7 +2928,7 @@ function enviarNotificacionRechazo(requestData, motivo) {
 
     <hr style="border:none; border-top:1px solid #ddd; margin:20px 0;">
     <p style="font-size:12px; color:#888; text-align:center;">
-      Sistema de Baja de Elementos - COMARRICO<br>
+      Sistema de Baja de Elementos - DORIA<br>
       Fecha: ${new Date().toLocaleString('es-ES')}
     </p>
   </div>
@@ -1481,7 +3028,7 @@ function enviarCorreoConfirmacionSolicitante(id, requestData, estado, observacio
 
     <hr style="border:none; border-top:1px solid #ddd; margin:20px 0;">
     <p style="font-size:12px; color:#888; text-align:center;">
-      Sistema de Baja de Elementos - COMARRICO<br>
+      Sistema de Baja de Elementos - DORIA<br>
       Fecha: ${new Date().toLocaleString('es-ES')}
     </p>
   </div>
@@ -1517,7 +3064,7 @@ function enviarNotificacionFinal(id, requestData) {
         
         <!-- Encabezado -->
         <div style="background: #004080; color: white; padding: 15px 25px; text-align: center;">
-          <h2 style="margin: 0;">🏢 Sistema de Baja de Elementos - COMARRICO</h2>
+          <h2 style="margin: 0;">🏢 Sistema de Baja de Elementos - DORIA</h2>
         </div>
         
         <!-- Contenido -->
@@ -1552,7 +3099,7 @@ function enviarNotificacionFinal(id, requestData) {
         <!-- Pie -->
         <div style="background: #f0f2f5; padding: 15px; text-align: center; font-size: 13px; color: #777;">
           ───────────────────────────────────────────────<br>
-          Sistema de Baja de Elementos - COMARRICO<br>
+          Sistema de Baja de Elementos - DORIA<br>
           Fecha: ${new Date().toLocaleString('es-ES')}
         </div>
       </div>
@@ -1987,7 +3534,7 @@ function enviarNotificacionAmbiental(requestData, precioReal, cantidadReal, prov
 
     <hr style="border:none; border-top:1px solid #ddd; margin:20px 0;">
     <p style="font-size:12px; color:#888; text-align:center;">
-      Sistema de Baja de Elementos - COMARRICO<br>
+      Sistema de Baja de Elementos - DORIA<br>
       Fecha: ${new Date().toLocaleString('es-ES')}
     </p>
   </div>

@@ -117,13 +117,13 @@
                         </button>
                         ${canValidate ? `
                             <button class="btn btn-sm btn-success" onclick="showValidateRequestModal('${request.id}')">
-                                <span>✅</span> 
+                                <span><i class="fa-regular fa-circle-check"></i></span> 
                             </button>
                             <button class="btn btn-sm btn-danger" onclick="showRejectRequestModal('${request.id}')">
-                                <span>❌</span> 
+                                <span><i class="fa-solid fa-ban"></i></span> 
                             </button>
                         ` : userAlreadyValidated ? `
-                            <span class="already-validated-badge">✅</span>
+                            <span class="already-validated-badge"><i class="fa-regular fa-circle-check"></i></span>
                         ` : ''}
                     </td>
                 `;
@@ -161,10 +161,10 @@ function displayAdminRequestsFallback(requests) {
                 </button>
                 ${canValidate ? `
                     <button class="btn btn-sm btn-success" onclick="showValidateRequestModal('${request.id}')">
-                        <span>✅</span> 
+                        <span><i class="fa-regular fa-circle-check"></i></span> 
                     </button>
                     <button class="btn btn-sm btn-danger" onclick="showRejectRequestModal('${request.id}')">
-                        <span>❌</span> 
+                        <span><i class="fa-solid fa-ban"></i></span> 
                     </button>
                 ` : ''}
             </td>

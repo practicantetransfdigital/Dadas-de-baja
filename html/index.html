@@ -7,6 +7,7 @@
     <title>Gestion Dadas de Baja</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <?!= HtmlService.createHtmlOutputFromFile('html/styles').getContent(); ?>
 </head>
 
@@ -19,16 +20,16 @@
         <div class="login-card">
             <div class="logo-container">
                 <div class="logo">
-                    <img src="https://comarrico.com/wp-content/uploads/2018/02/Logo-menu-comarrico.png" class="logo-img" alt="COMARRICO">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvdptdCHB1bOarb5mxM-jRVL2XWq6FdYKUcA&s" class="logo-img" alt="DORIA">
                 </div>
             </div>
             <h2 class="login-title">Gestion Dadas de Bajas</h2>
-            <p class="login-subtitle">COMARRICO - 2025</p>
+            <p class="login-subtitle">DORIA - 2025</p>
             
             <form id="loginForm">
                 <div class="form-group">
                     <label for="email">Correo Electrónico</label>
-                    <input type="email" id="email" name="email" placeholder="usuario@pastascomarrico.com" required>
+                    <input type="email" id="email" name="email" placeholder="usuario@alimentosdoria.com" required>
                 </div>
                 
                 <div class="form-group">
@@ -37,7 +38,7 @@
                 </div>
                 
                 <button type="submit" class="btn btn-primary">
-                    <span>🔐</span> Iniciar Sesión
+                    <span><i class="fa-solid fa-user-lock" style=" margin-right: 10PX;"></i></span> Iniciar Sesión
                 </button>
                 
                 <p class="register-link">
@@ -52,7 +53,7 @@
         <div class="login-card">
             <div class="logo-container">
                 <div class="logo">
-                    <img src="https://comarrico.com/wp-content/uploads/2018/02/Logo-menu-comarrico.png" class="logo-img" alt="COMARRICO">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvdptdCHB1bOarb5mxM-jRVL2XWq6FdYKUcA&s" class="logo-img" alt="DORIA">
                 </div>
             </div>
             <h2 class="login-title">Registro de Usuario</h2>
@@ -106,7 +107,7 @@
                 </div>
                 
                 <button type="submit" class="btn btn-primary">
-                    <span>👤</span> Registrarse
+                    <span><i class="fa-solid fa-pen-to-square" style=" margin-right: 10PX;"></i></span> Registrarse
                 </button>
                 
                 <p class="register-link">
@@ -122,7 +123,7 @@
         <div class="sidebar">
             <div class="sidebar-header">
                 <div class="logo-contain-sidebar">
-                    <img src="https://comarrico.com/wp-content/uploads/2018/02/Logo-menu-comarrico.png" class="logo-sidebar" alt="COMARRICO">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvdptdCHB1bOarb5mxM-jRVL2XWq6FdYKUcA&s" class="logo-sidebar" alt="DORIA">
                 </div>
                 <div class="system-title">
                     <h3 style="text-align: center;">SISTEMA DE BAJA</h3>
@@ -132,19 +133,19 @@
             
             <nav class="sidebar-nav">
                 <div class="nav-item active" id="navNuevaSolicitud" onclick="showNewRequest()">
-                    <span class="nav-icon">📝</span>
+                    <span class="nav-icon"><i class="fa-solid fa-file-pen"></i></span>
                     Nueva Solicitud
                 </div>
                 <div class="nav-item" id="navHistorial" onclick="showHistory()">
-                    <span class="nav-icon">📋</span>
+                    <span class="nav-icon"><i class="fa-solid fa-clipboard"></i></span>
                     Mi Historial
                 </div>
                 <div class="nav-item" id="navAdministracion" onclick="showAdmin()" style="display: none;">
-                    <span class="nav-icon">⚙️</span>
+                    <span class="nav-icon"><i class="fa-solid fa-user-gear"></i></span>
                     Pendientes
                 </div>
                 <div class="nav-item" id="navValidadas" onclick="showValidadas()" style="display: none;">
-                    <span class="nav-icon">♻️</span>
+                    <span class="nav-icon"><i class="fa-solid fa-recycle"></i></span>
                     Validadas
                 </div>
             </nav>
@@ -158,7 +159,7 @@
                     </div>
                 </div>
                 <button class="btn-logout" onclick="logout()">
-                    <span>🚪</span> Cerrar Sesión
+                    <span><i class="fa-solid fa-right-from-bracket"></i></span> Cerrar Sesión
                 </button>
             </div>
         </div>
@@ -177,7 +178,7 @@
                 <form id="newRequestForm" class="request-form">
                     <div class="form-section">
                         <div class="section-header">
-                            <span class="section-icon">📦</span>
+                            <span class="section-icon"><i class="fa-solid fa-dolly"></i></span>
                             <h3>Información del Elemento</h3>
                         </div>
                         
@@ -245,6 +246,7 @@
                                     <option value="Vasos desechables">Vasos desechables</option>
                                     <option value="Vidrio">Vidrio</option>
                                     <option value="Bolsas Metalizadas">Bolsas Metalizadas</option>
+                                    <option value="RAE">RAE</option>
                                   </select>
                             </div>
                         </div>
@@ -271,7 +273,7 @@
                     
                     <div class="form-section">
                         <div class="section-header">
-                            <span class="section-icon">⚠️</span>
+                            <span class="section-icon"><i class="fa-solid fa-triangle-exclamation"></i></span>
                             <h3>Motivo de la Baja</h3>
                         </div>
                         
@@ -325,10 +327,10 @@
                     
                     <div class="form-actions">
                         <button type="submit" class="btn btn-primary">
-                            <span>📤</span> Enviar Solicitud
+                            <span><i class="fa-solid fa-paper-plane" style=" margin-right: 10PX;"></i></span> Enviar Solicitud
                         </button>
                         <button type="reset" class="btn btn-secondary">
-                            <span>🔄</span> Limpiar Formulario
+                            <span><i class="fa-solid fa-arrows-rotate"></i></span> Limpiar Formulario
                         </button>
                     </div>
                 </form>
@@ -342,13 +344,13 @@
                         <p>Revise el estado de todas sus solicitudes de baja</p>
                     </div>
                     <button class="btn btn-primary" style="margin: 7rem 0rem 0rem 20rem" onclick="refreshHistory()">
-                        <span>🔄</span> Actualizar
+                        <span><i class="fa-solid fa-arrows-rotate" style=" margin-right: 10PX;"></i></span> Actualizar
                     </button>
                 </div>
                 
                 <div class="admin-panel">
                     <div class="panel-header">
-                        <span class="panel-icon">📋</span>
+                        <span class="panel-icon"><i class="fa-solid fa-clipboard"></i></span>
                         <h3>Mis Solicitudes</h3>
                     </div>
                     
@@ -380,13 +382,13 @@
                         <p>Gestione y valide las solicitudes de baja de elementos</p>
                     </div>
                     <button class="btn btn-primary" style="margin: 7rem 0rem 0rem 20rem" onclick="refreshAdmin()">
-                        <span>🔄</span> Actualizar
+                        <span><i class="fa-solid fa-arrows-rotate" style=" margin-right: 10PX;"></i></span> Actualizar
                     </button>
                 </div>
                 
                 <div class="admin-panel">
                     <div class="panel-header">
-                        <span class="panel-icon">⚙️</span>
+                        <span class="panel-icon"><i class="fa-solid fa-gears"></i></span>
                         <h3>Panel Administrativo</h3>
                     </div>
                     
@@ -419,13 +421,13 @@
             <p>Trazabilidad de todas las solicitudes completamente validadas</p>
         </div>
         <button class="btn btn-primary" style="margin: 7rem 0rem 0rem 20rem" onclick="refreshValidadas()">
-            <span>🔄</span> Actualizar
+            <span><i class="fa-solid fa-arrows-rotate" style=" margin-right: 10PX;"></i></span> Actualizar
         </button>
     </div>
     
     <div class="admin-panel">
         <div class="panel-header">
-            <span class="panel-icon">✅</span>
+            <span class="panel-icon"><i class="fa-solid fa-check-double"></i></span>
             <h3>Historial de Validadas</h3>
         </div>
         
@@ -457,14 +459,14 @@
     <div id="detailModal" class="modal" style="display: none; align-content: center;text-align: -webkit-center;">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>📋 Detalles de la Solicitud</h3>
+                <h3><i class="fa-solid fa-clipboard"></i> Detalles de la Solicitud</h3>
                 <span class="close" onclick="closeModal()">&times;</span>
             </div>
             <div class="modal-body">
                 <div id="staticDetailContent">
                     <div class="request-details">
                         <div class="detail-section">
-                            <h4>📋 Información General</h4>
+                            <h4><i class="fa-solid fa-clipboard"></i> Información General</h4>
                             <p><strong>ID:</strong> <span id="detail-id">-</span></p>
                             <p><strong>Solicitante:</strong> <span id="detail-solicitante">-</span></p>
                             <p><strong>Correo:</strong> <span id="detail-correo">-</span></p>
@@ -474,7 +476,7 @@
                         </div>
                         
                         <div class="detail-section">
-                            <h4>📦 Información del Elemento</h4>
+                            <h4><i class="fa-solid fa-box"></i> Información del Elemento</h4>
                             <p><strong>Nombre:</strong> <span id="detail-elemento">-</span></p>
                             <p><strong>Tipo:</strong> <span id="detail-tipo">-</span></p>
                             <p><strong>Tipo de Desperdicio:</strong> <span id="detail-tipo2">-</span></p>
@@ -486,19 +488,19 @@
                         </div>
                         
                         <div class="detail-section" id="validationsSection">
-                            <h4>👥 Historial de Validaciones</h4> 
+                            <h4><i class="fa-solid fa-person-circle-check"></i> Historial de Validaciones</h4> 
                             <div id="validationsList" class="validations-list">
                                 <!-- Validaciones se cargan aquí -->
                             </div>
                         </div>
                         
                         <div class="detail-section" id="observationsSection" style="display: none;">
-                            <h4>📝 Observaciones</h4>
+                            <h4><i class="fa-solid fa-pen-to-square"></i> Observaciones</h4>
                             <p id="detail-observaciones">-</p>
                         </div>
 
 <div class="detail-section" id="ambientalValidationSection" style="display: none;">
-    <h4>🌱 Validación Ambiental</h4>
+    <h4><i class="fa-solid fa-seedling"></i> Validación Ambiental</h4>
     <div id="ambientalValidationsList" class="validations-list">
         <!-- Las validaciones ambientales se cargarán aquí, igual que las individuales -->
     </div>
@@ -514,7 +516,7 @@
         <div class="custom-modal-content">
             <div class="custom-modal-header">
                 <h3 class="custom-modal-title" id="customModalTitle">
-                    <span id="customModalIcon">❓</span>
+                    <span id="customModalIcon"><i class="fa-regular fa-circle-question"></i></span>
                     <span id="customModalTitleText">Confirmación</span>
                 </h3>
             </div>
@@ -524,10 +526,10 @@
             </div>
             <div class="custom-modal-footer">
                 <button class="btn btn-secondary" onclick="closeCustomModal()">
-                    <span>❌</span> Cancelar
+                    <span><i class="fa-solid fa-ban" style=" margin-right: 10PX;"></i></span> Cancelar
                 </button>
                 <button class="btn btn-primary" id="customModalConfirm" onclick="confirmCustomModal()">
-                    <span>✅</span> Confirmar
+                    <span><i class="fa-regular fa-circle-check" style=" margin-right: 10PX;"></i></span> Confirmar
                 </button>
             </div>
         </div>
@@ -537,7 +539,7 @@
 <div id="ambientalModal" class="modal" style="display: none; align-content: center;text-align: -webkit-center;">
     <div class="modal-content" style="max-width: 600px;">
         <div class="modal-header">
-            <h3>🌱 Re-aprobación Ambiental</h3>
+            <h3><i class="fa-solid fa-seedling"></i> Re-aprobación Ambiental</h3>
             <span class="close" onclick="closeAmbientalModal()">&times;</span>
         </div>
         <div class="modal-body">
@@ -581,10 +583,10 @@
                 
                 <div class="form-actions" style="text-align: right; margin-top: 20px;">
                     <button type="button" class="btn btn-secondary" onclick="closeAmbientalModal()">
-                        <span>❌</span> Cancelar
+                        <span></span> Cancelar
                     </button>
                     <button type="submit" class="btn btn-primary">
-                        <span>✅</span> Registrar Re-aprobación
+                        <span></span> Registrar Re-aprobación
                     </button>
                 </div>
             </form>
@@ -609,4 +611,3 @@
 <?!= include('JavaScript/Panels/Validate'); ?>
 
 </html>
-
